@@ -1,0 +1,100 @@
+{"ProgressLesson": {
+   "message": "Progression dans chaque leçon",
+   "description": "Chart by lesson (nb fault, nb points)"},
+"LegendCorrect": {
+	"message": "Correct",
+	"description": "Label legend fancy chart correct answer"},
+"LegendIncorrect": {
+	"message": "Incorrect",
+	"description": "Label legend fancy chart incorrect answer"},
+"LegendPartial": {
+	"message": "Partiellement correct",
+	"description": "Label legend fancy chart partial correct answer"},
+"FancyValueAxesX": {
+	"message": "Heure de la journée",
+	"description": "Label legend fancy chart hour"},
+"FancyValueAxesY": {
+	"message": "Vitesse de réponse en secondes",
+	"description": "Label legend fancy chart answer speed"},
+"FancyTitle": {
+	"message": "Résultats des 10 000 derniers tests par moment de la journée",
+	"description": "Label title fancy chart speed answer/day"},
+"Welcome": {
+	"message": "Bonjour ",
+	"description": "Message Welcome on the Popup followed by username"},
+"amChartsTitle": {
+	"message": "Nombre de points cumulés de tous les cours",
+	"description": "Title of chart : Progression by day"},
+"update": {
+	"message": "Mettre à jour les données",
+	"description": "Text on popup to update all data for charts"},
+"tabs_1": {
+	"message": "Evolution global",
+	"description": "Title of firt popup tab : Points by day"},
+"tabs_2": {
+	"message": "Performance dans la journée",
+	"description": "Title of second popup tab : Performance during the day"},
+"tabs_3": {
+	"message": "Cours",
+	"description": "Title of third popup tab : list of courses"},
+"CourseDo": {
+	"message": "Réalisé (%)",
+	"description": "% of course executed"},
+"TitleImageUpdate": {
+	"message": "Mise à jour des courbes",
+	"description": "Protocol REST to have last data"},
+"TitleImageOption": {
+	"message": "Options",
+	"description": "Open Tab Options"},
+"TitleImageFullScreen": {
+	"message": "Voir dans un nouvel onglet",
+	"description": "Open this popup on new tab"},
+"settings": {
+	"message": "Options général",
+	"description": "title settings"},
+"autoPause": {
+	"message": "Mettre en pause le chrono automatiquement lorsque vous changez d'onglet ou verouillez l'ordinateur (bref, quand votre souris n'est plus sur MEMRISE)",
+	"description": "Option : Automatically pause"},
+"Configchrono": {
+	"message": "Vous permettre de ralentir le chrono ou de l'arrêter. Choix disponible en dessous du chrono",
+	"description": "Option : Timer config"},
+"Rankoverlord": {
+	"message": "Pour le fun : Modifications des badges et afficher le rang le plus haut : Overlord",
+	"description": "Option : Change badges"},
+"actionIcon": {
+	"message": "Actions lors du clique sur l'icône",
+	"description": "Option : Action when user click on icon"},
+"openTab": {
+	"message": "Ouvrir l'onglet memrise lorsque vous cliquez sur l'extension",
+	"description": "Option : Open extension on new tab"},
+"actionExtension": {
+	"message": "Ouvrir l'extension (graphiques,...)",
+	"description": "Option : Legend"},
+"openOptionPopup": {
+	"message": "Dans un popup",
+	"description": "Option : open in a popup"},
+"openOptionTab": {
+	"message": "In a tab",
+	"description": "Option : open in a tab"},
+"formatDate": {
+	"message": "Format des dates pour les graphiques",
+	"description": "Option : depend of country choice to charts"},
+"textDate": {
+	"message": "Pour les dates des graphiques, sélectionnez la langue à afficher",
+	"description": "Option : explain select"},
+"languages": {
+	"message": "Spécificités des langues",
+	"description": "Option : language settings"},
+"textHebrew": {
+	"message": "Afficher le texte hébreu carré en cursif אלף בת ->",
+	"description": "Option : cursive hebrew setting"},
+"bestResult": {
+	"message": "Votre meilleur moment pour apprendre : ",
+	"description": "Statistic : text best result"},
+"success": {
+	"message": "de réussite",
+	"description": "Statistic : text of % success"},
+"unsuccess": {
+	"message": "Le moment où vous ne devriez plus apprendre",
+	"description": "Statistic : text of % unsuccess"}
+}

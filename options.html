@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head><title>Memrise+ Options</title></head>
+<meta charset="UTF-8">
+<body>
+<link rel="stylesheet" href="css/options.css">
+<script src="js/jquery_2.2.0.min.js"></script>
+<header>
+<h1><img src="images/icon-48.png"/> MEMRISE<span class="leplus">+</span><div id="status"></div></h1>
+</header>
+
+<section>
+<h2 id="settings"></h2>
+<div id="inputOption">
+<label><input type="checkbox" id="autoPause"/><span id="_autoPause"></span></label>
+<label><input type="checkbox" id="Configchrono"/><span id="_Configchrono"></span></label>
+<label><input type="checkbox" id="Rankoverlord"/><span id="_Rankoverlord"></span></label>
+<!--<label style="color:#ccc"><input type="checkbox" id="Sound" disabled />Activer l'écoute audio si il n'est pas disponible (outils via Web Speech API. Quelques langues disponibles)</label>-->
+<h2 id="actionIcon"><img src="images/icon-16.png"/></h2>
+<label><input type="checkbox" id="openTab"/><span id="_openTab"></span></label>
+<fieldset><legend id="actionExtension"></legend>
+<label><input type="radio" name="ActionOpen" value="openOptionPopup" checked /><span id="_openOptionPopup"></span></label>
+<label><input type="radio" name="ActionOpen"  value="openOptionTab" /><span id="_openOptionTab"></span></label>
+<!--<label><input type="radio" name="ActionOpen"  value="openOptionWeb" />Dans la page d'acceuil de MEMRISE</label>-->
+</fieldset>
+</div>
+<h2 id="formatDate"></h2>
+<label>
+<select id="lang">
+<option value="en">English</option>
+<option value="az">az</option>
+<option value="bg">bg</option>
+<option value="de">de</option>
+<option value="es">es</option>
+<option value="fi">fi</option>
+<option value="fo">fo</option>
+<option value="fr">fr</option>
+<option value="hr">hr</option>
+<option value="hu">hu</option>
+<option value="id">id</option>
+<option value="is">is</option>
+<option value="it">it</option>
+<option value="ja">ja</option>
+<option value="ko">ko</option>
+<option value="lt">lt</option>
+<option value="lv">lv</option>
+<option value="mk">mk</option>
+<option value="mn">mn</option>
+<option value="mt">mt</option>
+<option value="nl">nl</option>
+<option value="no">no</option>
+<option value="pl">pl</option>
+<option value="pt">pt</option>
+<option value="ro">ro</option>
+<option value="ru">ru</option>
+<option value="rw">rw</option>
+<option value="sk">sk</option>
+<option value="so">so</option>
+<option value="th">th</option>
+<option value="tr">tr</option>
+<option value="zh">zh</option>
+</select ><span id="textDate"></span></label>
+
+
+<h2 id="languages"></h2>
+<label><input type="checkbox" id="cursiveHebrew" /><span id="textHebrew"> </span><span class="ViewCursiceHebrew">אלף בת</span></label>
+</section>
+<footer>
+	Developed on 2016 by Rodolphe MOULIN | Code Timer Control created by  https://github.com/carpiediem/ |Not official extension : &#222; |
+</footer>
+<script src="js/options.js"></script>
+</body>
+</html>

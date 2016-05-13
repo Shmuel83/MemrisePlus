@@ -1,0 +1,39 @@
+{
+"name" :"MEMRISE+",
+"version" : "1.0",
+"manifest_version" :2,
+"default_locale": "en",
+"description" :"Timer configuration, Fonts modify, chart of your improving (not official extension) ",
+"author": "Rodolphe MOULIN",
+"icons": { "16": "images/icon-16.png",
+		   "32": "images/icon-32.png",
+           "48": "images/icon-48.png",
+          "128": "images/icon-128.png" },
+"permissions": [
+	"tabs",
+	"storage",	
+	"http://www.memrise.com/*"
+  ],
+"content_scripts": [ {
+  "matches": ["http://www.memrise.com/*"],
+  "js": ["js/jquery_2.2.0.min.js","js/insertScript.js"]
+},
+{
+  "matches": ["http://www.memrise.com/course/*/garden/*","http://www.memrise.com/garden/water/*"],
+  "js": ["js/hackTimerUserAction.js"]
+}
+],
+"background": {
+	"page": "background.html"
+},
+"options_page": "options.html",
+"browser_action" :
+	{
+		"default_icon" : "images/icon-48.png"
+	},
+"web_accessible_resources": [
+	"CAFERG__.TTF"
+],
+"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+
+}

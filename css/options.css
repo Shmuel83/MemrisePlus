@@ -1,0 +1,63 @@
+header,footer{
+	background:#F1F1F1;
+	width:100%;
+}
+body{
+position: relative;
+ padding-bottom:2em;
+}
+footer{
+	position: absolute; 
+	bottom: 0;
+	font-size:16px;
+	text-align:right;
+}
+section,h1{
+	margin-left:200px;
+}
+h1{
+	background:#F1F1F1;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction:row;
+	align-items: center;
+	height:100px;
+	font-size:48px;
+	
+}
+#inputOption, fieldset{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction:column;
+}
+label, legend{
+	margin:5px;
+	font-size:16px;
+}
+.leplus{
+	-webkit-transition: 1s ease-in;
+    -moz-transition: 1s ease-in;
+    -o-transition: 1s ease-in;
+    transition: 1s ease-in;
+}
+.leplus:hover{
+	transform:rotate(360deg);
+}
+#status{
+	font-size:24px;
+	margin-left:10px;
+}
+@font-face { 
+	font-family: 'CursiveHebrew'; 
+	src: url('../CAFERG__.TTF') format('truetype');
+}
+.ViewCursiceHebrew{
+	font-family: "CursiveHebrew";
+	font-size:24px;
+}

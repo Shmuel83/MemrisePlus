@@ -1,0 +1,100 @@
+{"ProgressLesson": {
+   "message": "Progress in each lesson",
+   "description": "Chart by lesson (nb fault, nb points)"},
+"LegendCorrect": {
+	"message": "Correct",
+	"description": "Label legend fancy chart correct answer"},
+"LegendIncorrect": {
+	"message": "Incorrect",
+	"description": "Label legend fancy chart incorrect answer"},
+"LegendPartial": {
+	"message": "Partialy correct",
+	"description": "Label legend fancy chart partial correct answer"},
+"FancyValueAxesX": {
+	"message": "Hour",
+	"description": "Label legend fancy chart hour"},
+"FancyValueAxesY": {
+	"message": "Answer speed (seconds)",
+	"description": "Label legend fancy chart answer speed"},
+"FancyTitle": {
+	"message": "Your last 10.000 tests shown by the time of the day",
+	"description": "Label title fancy chart speed answer/day"},
+"Welcome": {
+	"message": "Hello ",
+	"description": "Message Welcome on the Popup followed by username"},
+"amChartsTitle": {
+	"message": "Points earned each day",
+	"description": "Title of chart : Progression by day"},
+"update": {
+	"message": "Update data",
+	"description": "Text on popup to update all data for charts"},
+"tabs_1": {
+	"message": "Points by day",
+	"description": "Title of firt popup tab : Points by day"},
+"tabs_2": {
+	"message": "Success by the time of the day",
+	"description": "Title of second popup tab : Performance during the day"},
+"tabs_3": {
+	"message": "Courses",
+	"description": "Title of third popup tab : list of courses"},
+"CourseDo": {
+	"message": "Executed (%)",
+	"description": "% of course executed"},
+"TitleImageUpdate": {
+	"message": "Update Charts",
+	"description": "Protocol REST to have last data"},
+"TitleImageOption": {
+	"message": "Settings",
+	"description": "Open Tab Options"},
+"TitleImageFullScreen": {
+	"message": "FullScreen",
+	"description": "Open this popup on new tab"},
+"settings": {
+	"message": "Settings",
+	"description": "title settings"},
+"autoPause": {
+	"message": "Pause the timer automatically when you change tabs or lock the computer (in short, when your mouse is no longer on memrise)",
+	"description": "Option : Automatically pause"},
+"Configchrono": {
+	"message": "You afford to slow down the clock or stop. Choice available under the chrono",
+	"description": "Option : Timer config"},
+"Rankoverlord": {
+	"message": "For fun: Changes badges and display the highest rank: Overlord",
+	"description": "Option : Change badges"},
+"actionIcon": {
+	"message": "Events at the click on the icon",
+	"description": "Option : Action when user click on icon"},
+"openTab": {
+	"message": "Open memrise tab when you click the extension",
+	"description": "Option : Open extension on new tab"},
+"actionExtension": {
+	"message": "Open the extension (graphics ...)",
+	"description": "Option : Legend"},
+"openOptionPopup": {
+	"message": "In a popup",
+	"description": "Option : open in a popup"},
+"openOptionTab": {
+	"message": "In a tab",
+	"description": "Option : open in a tab"},
+"formatDate": {
+	"message": "Formatting date of charts",
+	"description": "Option : depend of country choice to charts"},
+"textDate": {
+	"message": "For charts dates, select the language to display",
+	"description": "Option : explain select"},
+"languages": {
+	"message": "Specific languages",
+	"description": "Option : language settings"},
+"textHebrew": {
+	"message": "View square Hebrew text in cursive אלף בת ->",
+	"description": "Option : cursive hebrew setting"},
+"bestResult": {
+	"message": "Your best time to learn:",
+	"description": "Statistic : text best result"},
+"success": {
+	"message": "of success",
+	"description": "Statistic : text of % success"},
+"unsuccess": {
+	"message": "Your time you should not learn",
+	"description": "Statistic : text of % unsuccess"}
+}
