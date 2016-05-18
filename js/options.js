@@ -75,6 +75,7 @@ $("#textDate").text(chrome.i18n.getMessage('textDate'));
 $("#languages").text(chrome.i18n.getMessage('languages'));
 $("#textHebrew").text(chrome.i18n.getMessage('textHebrew'));
 $("#Thanks").text(chrome.i18n.getMessage('Thanks'));
+$("#info").text(chrome.i18n.getMessage('info'));
 
 //Get extension version. Write into footbar
 $("#version").text("version "+(chrome.runtime.getManifest().version+ " "));

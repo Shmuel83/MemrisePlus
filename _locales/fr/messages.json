@@ -114,5 +114,8 @@
 	"description": "Tooltip Number of correct answers on FancyChart"},
 "Thanks": {
 	"message": "Remerciements",
-	"description": "Options Thanks"}
+	"description": "Options Thanks"},
+"info": {
+	"message": "Si la modification d'une option est au cours d'un exercice, elle sera effective lors du lancement d'un nouvel exercice.",
+	"description": "Options info"}
 }
