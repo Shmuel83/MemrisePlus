@@ -36,10 +36,21 @@ function OnloadBadges() {
 		reviewCourse = reviewCourse + courses[icourse].review;
 		difficultCourse = difficultCourse + courses[icourse].difficult;
 	}
-	chrome.browserAction.setBadgeText({
+	if(reviewCourse>0) {
+		if(reviewCourse>200) {
+			reviewCourse="+200";
+		}
+		chrome.browserAction.setBadgeText({
 			text: reviewCourse.toString()
-	});
-	chrome.browserAction.setBadgeBackgroundColor({
+		});
+		chrome.browserAction.setBadgeBackgroundColor({
             color: '#6ec8f9'
-	});
+		});
+		
+	}
+	else {
+		chrome.browserAction.setBadgeText({
+			text: ""
+		});
+	}
 }
