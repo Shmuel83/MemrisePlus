@@ -75,4 +75,7 @@ $("#textDate").text(chrome.i18n.getMessage('textDate'));
 $("#languages").text(chrome.i18n.getMessage('languages'));
 $("#textHebrew").text(chrome.i18n.getMessage('textHebrew'));
 
-console.log("MEMRISE run with MEMRISE+ extension. If you found a bug, want participate to extension\'s program  or to suggest an improvement, go to https://github.com/Shmuel83/MemrisePlus ");
+//Get extension version. Write into footbar
+$("#version").text("version "+(chrome.runtime.getManifest().version+ " "));
+
+console.log("MEMRISE run with MEMRISE+ extension. If you found a bug, want participate to extension\'s program  or to suggest an improvement, translation, go to https://github.com/Shmuel83/MemrisePlus ");
