@@ -5,15 +5,31 @@ function checkSession() {
 //Système d'onglet dans le popup
 $(function() { //Attendre que la page finisse de se charger avant d'effectuer les scripts
     checkSession();
+	$( "#tabs" ).tabs();
 	if (localStorage.getItem('username')) {
 		$(".helloworld").text(chrome.i18n.getMessage('Welcome') + localStorage.getItem('username'));
+		if(localStorage.getItem('username')=="undefined") {
+			$("#chartdiv").html("<a href='#' id='clickici'>Click on</a> to reload extension. If don't working, don't panic, go to extension tab and click on reload, or close chrome and open it");
+		$("#clickici").click(function() {
+			OnloadStreakGraph();
+			OnloadFancyGraph();
+		});
+		$("#clickici").click();
+		}
 	}
 	else {
-		$("#chartdiv").html("<h3>Bonjour, vous devez vous connecter ou créer un compte sur memrise pour que l'extension puisse fonctionner : <a id='InitConnect' href='https://www.memrise.com'>https://www.memrise.com</a><hr> Puis <a href='#' id='clickici'>cliquez ici</a> pour recharger l'extension</h3>");
-		
+		$("#chartdiv").html("<h3>Hello, you must be connected on memrise for that extension run ! <a id='InitConnect' href='https://www.memrise.com'>https://www.memrise.com</a><hr><a href='#' id='clickici'>Click on</a> to reload extension. If don't working, don't panic, go to extension tab and click on reload, or close chrome and open it</h3>");
+		 $("#InitConnect").click(function() {chrome.tabs.create({ url: "http://www.memrise.com/" })});
+		$("#clickici").click(function() {
+			OnloadStreakGraph();
+			OnloadFancyGraph();
+			OnloadCourses();
+			OnloadBadges();
+		});
+		$("#clickici").click();
 	}
 	
-	$( "#tabs" ).tabs();
+	
 	//Traduction des onglets
 	$('a[href="#tabs-1"]').text(chrome.i18n.getMessage('tabs_1'));
 	$('a[href="#tabs-2"]').text(chrome.i18n.getMessage('tabs_2'));
@@ -26,15 +42,7 @@ $(function() { //Attendre que la page finisse de se charger avant d'effectuer le
 	
 	
  });
- $("#InitConnect").click(function() {chrome.tabs.create({ url: "http://www.memrise.com/" })});
-		$("#clickici").click(function() {
-			OnloadCourses();
-			OnloadBadges();
-			OnloadStreakGraph();
-			OnloadFancyGraph();
-	
-			location.reload();
-		});
+
 //Ne permettre qu'une seul requête par jour vers le serveur memrise pour ne pas saturer le seveur sur les API (outrepassé si demande d'upload de l'utilisateur)
 function checkJetonGet() {
 	var date = new Date();
@@ -75,4 +83,4 @@ chrome.storage.sync.get({
 	}
  }
 );
-console.log("MEMRISE run with MEMRISE+ extension. If you found a bug, want participate to extension\'s program  or to suggest an improvement, go to https://github.com/Shmuel83/MemrisePlus ");
+console.log("MEMRISE run with MEMRISE+ extension. If you found a bug, want participate to extension\'s program  or to suggest an improvement, translation, go to https://github.com/Shmuel83/MemrisePlus ");
