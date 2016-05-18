@@ -33,3 +33,10 @@
 	flex-direction:row;
 	justify-content:flex-start;
 }
+#image_refresh:active {
+	-webkit-transition: 1s ease-in;
+    -moz-transition: 1s ease-in;
+    -o-transition: 1s ease-in;
+    transition: 1s ease-in;
+	transform:rotate(360deg);
+}

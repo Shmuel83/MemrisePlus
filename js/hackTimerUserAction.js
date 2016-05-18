@@ -69,7 +69,25 @@ var PoliceHebrewSquarre =     function SquarreHebrew() {
             ChoiceTest.css("font-family",false);
         }
     };
+/*
+//To delete vocalise
+function highlight($el, word) {
+        var text = $el.html();
+        text = text.replace(new RegExp(word,'g'), '');
+        $el.html(text);
+    }
+     
+    $.fn.highlight = function(word) {
+        return this.each(function() {
+            highlight($(this), word);
+        });
+    };
 
+$('body').highlight("ֲ");
+
+
+
+*/
 
 //@source		 https://github.com/carpiediem/memrise-enhancement-suite/blob/master/memrise-timer-controls.user.js
 var setCountdown = function setCountdown(currentSetting) {
@@ -176,7 +194,7 @@ var injectWithJQ = function(f) {
 var styleNode           = document.createElement ("style");
 styleNode.type          = "text/css";
 styleNode.textContent   = "@font-face { font-family: 'CursiveHebrew'; src: url('"
-                        + chrome.extension.getURL ("CAFERG__.TTF")
+                        + chrome.extension.getURL ("DorianCLM-BookItalic.TTF")
                         + "') format('truetype'); }"
                         ;
 document.head.appendChild (styleNode);

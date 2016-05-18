@@ -19,7 +19,6 @@ function UpdateAllChart() {
 	OnloadCourses();
 	OnloadBadges();
 //if(OnloadStreakGraph()=="success") {
-	OnloadStreakGraph();
 	UpdateLineChart();
 //}
 //if(OnloadFancyGraph()=="success") {

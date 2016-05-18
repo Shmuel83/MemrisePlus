@@ -85,8 +85,10 @@ function ChartFancyLoad() {
 	}
  }
  function UpdateFancyChart() {
-	 chartFancy.dataProvider = chartFancyData = JSON.parse(localStorage['fancy']).data;
-	 chartFancy.validateData();
+	 if(localStorage['fancy']) {
+		chartFancy.dataProvider = chartFancyData = JSON.parse(localStorage['fancy']).data;
+		chartFancy.validateData();
+	 }
  }
  chrome.storage.sync.get({
 	Choice_lang: "en"

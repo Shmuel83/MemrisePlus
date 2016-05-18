@@ -55,7 +55,7 @@ label, legend{
 }
 @font-face { 
 	font-family: 'CursiveHebrew'; 
-	src: url('../CAFERG__.TTF') format('truetype');
+	src: url('../DorianCLM-BookItalic.TTF') format('truetype');
 }
 .ViewCursiceHebrew{
 	font-family: "CursiveHebrew";

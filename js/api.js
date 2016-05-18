@@ -5,6 +5,7 @@ var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter
             localStorage.setItem("courses",JSON.stringify(data));
         })
  .done(function() {
+	coursesView();
 	return "success";
   })
   .fail(function() {
@@ -37,6 +38,8 @@ var url_streakGraph = "http://www.memrise.com/ajax/metrics/learning_streak_graph
             localStorage.setItem("json",JSON.stringify(data));
         })
 	.done(function() {
+	
+	ChartLoad();
 	return "success";
   })
   .fail(function() {
@@ -53,6 +56,8 @@ var url_fancyGraph = "http://www.memrise.com/ajax/metrics/fancy_tests_graph/";
             localStorage.setItem("fancy",JSON.stringify(data));
         })
 	.done(function() {
+	
+	ChartFancyLoad();
 	return "success";
   })
   .fail(function() {

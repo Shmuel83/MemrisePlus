@@ -80,9 +80,11 @@ function ChartLoad() {
 	}
 }
 function UpdateLineChart() {
-	chart.dataProvider = JSON.parse(localStorage['json']).attendance_data;
-	chart.language = langStorage;
-	chart.validateData();
+	if(localStorage['json']) {
+		chart.dataProvider = JSON.parse(localStorage['json']).attendance_data;
+		chart.language = langStorage;
+		chart.validateData();
+	}
 }
 chrome.storage.sync.get({
 	Choice_lang: "en"

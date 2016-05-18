@@ -86,7 +86,7 @@
 	"message": "Specific languages",
 	"description": "Option : language settings"},
 "textHebrew": {
-	"message": "View square Hebrew text in cursive אלף בת ->",
+	"message": "View square Hebrew text in cursive אָלֶף-בֵּית ->",
 	"description": "Option : cursive hebrew setting"},
 "bestResult": {
 	"message": "Your best time to learn:",
