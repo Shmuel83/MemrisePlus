@@ -111,5 +111,8 @@
 	"description": "Tooltip Number of wrong answers on FancyChart"},
 "FancyNbResponseGood": {
 	"message": "Nombre de bonnes réponses",
-	"description": "Tooltip Number of correct answers on FancyChart"}
+	"description": "Tooltip Number of correct answers on FancyChart"},
+"Thanks": {
+	"message": "Remerciements",
+	"description": "Options Thanks"}
 }
