@@ -35,7 +35,7 @@ function ChartFancyLoad() {
 		text: chrome.i18n.getMessage('FancyTitle'),
 	}],
      "graphs": [{
-         "balloonText": "heure:<b>[[time]]</b> temps de réponse:<b>[[correct_resp_time]]</b><br>Nombre de bonnes réponses:<b>[[correct]]</b>",
+         "balloonText": chrome.i18n.getMessage('FancyHour') +":<b>[[time]]</b> "+chrome.i18n.getMessage('FancyTimeOfResponse') +":<b>[[correct_resp_time]]</b><br>"+chrome.i18n.getMessage('FancyNbResponseGood') +":<b>[[correct]]</b>",
          "bullet": "bubble",
          "lineAlpha": 0,
          "valueField": "correct",
@@ -47,7 +47,7 @@ function ChartFancyLoad() {
          "maxBulletSize": 80
 
      }, {
-         "balloonText": "heure:<b>[[time]]</b> temps de réponse:<b>[[incorrect_resp_time]]</b><br>Nombre de mauvaises réponses:<b>[[incorrect]]</b>",
+         "balloonText": chrome.i18n.getMessage('FancyHour') +":<b>[[time]]</b> "+chrome.i18n.getMessage('FancyTimeOfResponse') +":<b>[[incorrect_resp_time]]</b><br>"+chrome.i18n.getMessage('FancyNbResponseBad') +":<b>[[incorrect]]</b>",
          "bullet": "bubble",
          "lineAlpha": 0,
          "valueField": "incorrect",
@@ -60,7 +60,7 @@ function ChartFancyLoad() {
 
      },
      {
-         "balloonText": "heure:<b>[[time]]</b> temps de réponse:<b>[[incorrect_resp_time]]</b><br>Nombre de réponses partiels:<b>[[partially_correct]]</b>",
+         "balloonText": chrome.i18n.getMessage('FancyHour') +":<b>[[time]]</b> "+chrome.i18n.getMessage('FancyTimeOfResponse') +":<b>[[incorrect_resp_time]]</b><br>"+chrome.i18n.getMessage('FancyNbResponsePartial') +":<b>[[partially_correct]]</b>",
          "bullet": "bubble",
          "lineAlpha": 0,
          "valueField": "partially_correct",

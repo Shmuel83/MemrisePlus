@@ -96,5 +96,20 @@
 	"description": "Statistic : text of % success"},
 "unsuccess": {
 	"message": "Your time you should not learn",
-	"description": "Statistic : text of % unsuccess"}
+	"description": "Statistic : text of % unsuccess"},
+"FancyHour": {
+	"message": "hour",
+	"description": "Tooltip FancyChart"},
+"FancyTimeOfResponse": {
+	"message": "Time of response",
+	"description": "Tooltip Time of response on FancyChart"},
+"FancyNbResponsePartial": {
+	"message": "Number of partial responses",
+	"description": "Tooltip Number of partial responses on FancyChart"},
+"FancyNbResponseBad": {
+	"message": "Number of wrong answers",
+	"description": "Tooltip Number of wrong answers on FancyChart"},
+"FancyNbResponseGood": {
+	"message": "Nombre de bonnes réponses",
+	"description": "Tooltip Number of correct answers on FancyChart"}
 }
