@@ -3,6 +3,7 @@ function save_options(e) {
 	var get_autoPause = document.getElementById('autoPause').checked;
 	var get_Configchrono = document.getElementById('Configchrono').checked;
 	var get_openTab = document.getElementById('openTab').checked;
+	var get_chat = document.getElementById('Chat').checked;
 	var get_Rankoverlord = document.getElementById('Rankoverlord').checked;
 	var get_open = $('[name="ActionOpen"]:checked').val();
 	var get_lang = $('#lang').val();
@@ -13,6 +14,7 @@ function save_options(e) {
 		Choice_autoPause: get_autoPause,
 		Choice_manageChrono: get_Configchrono,
 		Choice_openTab: get_openTab,
+		Choice_chat : get_chat,
 		Choice_fun: get_Rankoverlord,
 		Choice_open: get_open,
 		Choice_lang: get_lang,
@@ -42,11 +44,13 @@ function restore_options() {
 	Choice_fun: false,
 	Choice_open: "openOptionPopup",
 	Choice_lang:"en",
+	Choice_chat:true,
 	Choice_PoliceHebrew: false
   }, function(items) {
     document.getElementById('autoPause').checked = items.Choice_autoPause;
 	document.getElementById('Configchrono').checked = items.Choice_manageChrono;
 	document.getElementById('openTab').checked = items.Choice_openTab;
+	document.getElementById('Chat').checked = items.Choice_chat;
 	document.getElementById('Rankoverlord').checked = items.Choice_fun;
 	$( '[value="'+items.Choice_open+'"]' ).prop( "checked", true );
 	$('#lang [value="'+items.Choice_lang+'"]').prop('selected', true)
