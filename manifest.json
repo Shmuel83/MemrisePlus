@@ -1,10 +1,10 @@
 {
 "name" :"MEMRISE+",
 "short_name" : "memrise +",
-"version" : "1.0.2",
+"version" : "1.0.3",
 "manifest_version" :2,
 "default_locale": "en",
-"description" :"For memrise website, with this extension you can add a timer configuration for slowing or stopping the timer, transform square hebrew at cursive hebrew, show a chart of your points by day and a chart on your success by the time of the day (not official extension) ",
+"description" :"For memrise website, with this extension you can add a timer configuration, transform square hebrew at cursive hebrew, show charts",
 "author": "Rodolphe MOULIN",
 "icons": { "16": "images/icon-16.png",
 		   "32": "images/icon-32.png",
