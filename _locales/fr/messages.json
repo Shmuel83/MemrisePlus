@@ -117,5 +117,8 @@
 	"description": "Options Thanks"},
 "info": {
 	"message": "Si la modification d'une option est au cours d'un exercice, elle sera effective lors du lancement d'un nouvel exercice.",
-	"description": "Options info"}
+	"description": "Options info"},
+"chat": {
+	"message": "Utilisez vos mots appris pour progresser d'avantage avec la communauté via un chat dans la page d'acceuil",
+	"description": "Options chat"}
 }
