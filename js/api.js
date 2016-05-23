@@ -1,6 +1,6 @@
 //Recherche de tous les cours (ne répond à pas plus de 4 cours. Si il y en a plus, on ne les voient pas)
 function OnloadCourses() {
-var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter=most_recent";
+var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter=most_recent&limit=20";
         $.getJSON(url_courses, function (data) {
             localStorage.setItem("courses",JSON.stringify(data));
         })
