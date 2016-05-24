@@ -49,6 +49,9 @@
 "TitleImageFullScreen": {
 	"message": "FullScreen",
 	"description": "Open this popup on new tab"},
+"TitleImageAbout": {
+	"message": "About",
+	"description": "Open a new tab : about"},
 "settings": {
 	"message": "Settings",
 	"description": "title settings"},

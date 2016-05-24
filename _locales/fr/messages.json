@@ -49,6 +49,9 @@
 "TitleImageFullScreen": {
 	"message": "Voir dans un nouvel onglet",
 	"description": "Open this popup on new tab"},
+"TitleImageAbout": {
+	"message": "A propos de l'extension",
+	"description": "Open a new tab : about"},
 "settings": {
 	"message": "Options général",
 	"description": "title settings"},

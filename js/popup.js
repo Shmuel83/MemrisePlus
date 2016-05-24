@@ -37,8 +37,10 @@ $(function() { //Attendre que la page finisse de se charger avant d'effectuer le
 	$("img[src='images/refresh.png']").attr("title",chrome.i18n.getMessage('TitleImageUpdate'));
 	$("img[src='images/config.png']").attr("title",chrome.i18n.getMessage('TitleImageOption'));
 	$("img[src='images/fullScreen.png']").attr("title",chrome.i18n.getMessage('TitleImageFullScreen'));
+	$("img[src='images/info.png']").attr("title",chrome.i18n.getMessage('TitleImageAbout'));
 	document.getElementById('imgConfig').addEventListener('click', open_options);
 	document.getElementById('fullScreen').addEventListener('click', openfullScreen_popup);
+	document.getElementById('about').addEventListener('click', open_about);
 	
 	
  });
@@ -66,7 +68,9 @@ function open_options() {
 function openfullScreen_popup() {
 	chrome.tabs.create({url : 'popup_fullScreen.html'});
 }
-
+function open_about() {
+	chrome.tabs.create({url : 'about.html'});
+}
 //Inclure fichier langue si ce n'est pas de l'anglais
 function include(file) {
     var oScript =  document.createElement("script");
