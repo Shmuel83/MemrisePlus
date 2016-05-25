@@ -37,8 +37,8 @@ function OnloadBadges() {
 		difficultCourse = difficultCourse + courses[icourse].difficult;
 	}
 	if(reviewCourse>0) {
-		if(reviewCourse>200) {
-			reviewCourse="+200";
+		if(reviewCourse>900) {
+			reviewCourse="+900";
 		}
 		chrome.browserAction.setBadgeText({
 			text: reviewCourse.toString()
