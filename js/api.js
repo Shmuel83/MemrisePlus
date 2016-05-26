@@ -1,11 +1,13 @@
 //Recherche de tous les cours (ne répond à pas plus de 4 cours. Si il y en a plus, on ne les voient pas)
-function OnloadCourses() {
+function OnloadCourses(is_popup) {
 var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter=most_recent&limit=20";
         $.getJSON(url_courses, function (data) {
             localStorage.setItem("courses",JSON.stringify(data));
         })
  .done(function() {
-	coursesView();
+	if(is_popup) {
+		coursesView();
+	}
 	return "success";
   })
   .fail(function() {
@@ -32,14 +34,15 @@ var url_courseDetail = "http://www.memrise.com/api/course/get/?course_id=" + cou
   });
 }
 //Récupération de tous les points cumulés
-function OnloadStreakGraph() {
+function OnloadStreakGraph(is_popup) {
 var url_streakGraph = "http://www.memrise.com/ajax/metrics/learning_streak_graph/";
         $.getJSON(url_streakGraph, function (data) {
             localStorage.setItem("json",JSON.stringify(data));
         })
 	.done(function() {
-	
-	ChartLoad();
+	if(is_popup) {
+		ChartLoad();
+	}
 	return "success";
   })
   .fail(function() {
@@ -50,14 +53,15 @@ var url_streakGraph = "http://www.memrise.com/ajax/metrics/learning_streak_graph
   });
 }
 //Récupération de tous les points cumulés
-function OnloadFancyGraph() {
+function OnloadFancyGraph(is_popup) {
 var url_fancyGraph = "http://www.memrise.com/ajax/metrics/fancy_tests_graph/";
         $.getJSON(url_fancyGraph, function (data) {
             localStorage.setItem("fancy",JSON.stringify(data));
         })
 	.done(function() {
-	
-	ChartFancyLoad();
+	if(is_popup) {
+		ChartFancyLoad();
+	}
 	return "success";
   })
   .fail(function() {

@@ -16,15 +16,14 @@ ChartFancyLoad();
 //Update by user request (click on image uder popup)
 function UpdateAllChart() {
 //Lancement des script API et récupération JSON
-	OnloadCourses();
+	OnloadCourses(true);
 	OnloadBadges();
-//if(OnloadStreakGraph()=="success") {
+
+	OnloadStreakGraph(true);
 	UpdateLineChart();
-//}
-//if(OnloadFancyGraph()=="success") {
-	OnloadFancyGraph();
+
+	OnloadFancyGraph(true);
 	UpdateFancyChart();
-//}
 }
 
 //Update text on badge (extension icon)

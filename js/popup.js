@@ -11,8 +11,8 @@ $(function() { //Attendre que la page finisse de se charger avant d'effectuer le
 		if(localStorage.getItem('username')=="undefined") {
 			$("#chartdiv").html("<a href='#' id='clickici'>Click on</a> to reload extension. If don't working, don't panic, go to extension tab and click on reload, or close chrome and open it");
 		$("#clickici").click(function() {
-			OnloadStreakGraph();
-			OnloadFancyGraph();
+			OnloadStreakGraph(true);
+			OnloadFancyGraph(true);
 		});
 		$("#clickici").click();
 		}
@@ -21,9 +21,9 @@ $(function() { //Attendre que la page finisse de se charger avant d'effectuer le
 		$("#chartdiv").html("<h3>Hello, you must be connected on memrise for that extension run ! <a id='InitConnect' href='https://www.memrise.com'>https://www.memrise.com</a><hr><a href='#' id='clickici'>Click on</a> to reload extension. If don't working, don't panic, go to extension tab and click on reload, or close chrome and open it</h3>");
 		 $("#InitConnect").click(function() {chrome.tabs.create({ url: "http://www.memrise.com/" })});
 		$("#clickici").click(function() {
-			OnloadStreakGraph();
-			OnloadFancyGraph();
-			OnloadCourses();
+			OnloadStreakGraph(true);
+			OnloadFancyGraph(true);
+			OnloadCourses(true);
 			OnloadBadges();
 		});
 		$("#clickici").click();
