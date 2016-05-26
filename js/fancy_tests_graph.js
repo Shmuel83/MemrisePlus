@@ -9,7 +9,6 @@ function ChartFancyLoad() {
 			chartFancyData = JSON.parse(localStorage['fancy']).data;
    chartFancy = AmCharts.makeChart("chartdiv_fancy", {
      "type": "xy",
-	 "pathToImages": "http://cdn.amcharts.com/lib/3/images/",
      "theme": "light",
 	 "dataDateFormat": "HH:NN", //Axe x sous la forme heure:minute
 	 "legend": {

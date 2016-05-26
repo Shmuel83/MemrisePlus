@@ -11,7 +11,6 @@ function ChartLoad() {
 			chartData = JSON.parse(localStorage['json']).attendance_data;
             chart = AmCharts.makeChart("chartdiv", {
                 type: "serial",
-				"pathToImages": "http://cdn.amcharts.com/lib/3/images/",
                 dataProvider: chartData,
                 categoryField: "day",
                 categoryAxis: {
