@@ -10,23 +10,23 @@
 </header>
 
 <section>
-<i id="info"></i>
+<i id="info">If the modification of an option is during an exercice, it will be active at the launch of a new exercise.</i>
 <h2 id="settings"></h2>
 <div id="inputOption">
-<label><input type="checkbox" id="autoPause"/><span id="_autoPause"></span></label>
-<label><input type="checkbox" id="Configchrono"/><span id="_Configchrono"></span></label>
-<label><input type="checkbox" id="Chat"/><span id="_Chat">Chat</span></label>
-<label><input type="checkbox" id="Rankoverlord"/><span id="_Rankoverlord"></span></label>
+<label><input type="checkbox" id="autoPause"/><span id="_autoPause">Pause the timer automatically when you change tabs or lock the computer (in short, when your mouse is no longer on memrise)</span></label>
+<label><input type="checkbox" id="Configchrono"/><span id="_Configchrono">You afford to slow down the clock or stop. Choice available under the chrono</span></label>
+<label><input type="checkbox" id="Chat"/><span id="_Chat">Use your words learned to make further progress with the community with a t'chat in the home page</span></label>
+<label><input type="checkbox" id="Rankoverlord"/><span id="_Rankoverlord">For fun: Changes badges and display the highest rank: Overlord</span></label>
 <!--<label style="color:#ccc"><input type="checkbox" id="Sound" disabled />Activer l'écoute audio si il n'est pas disponible (outils via Web Speech API. Quelques langues disponibles)</label>-->
 <h2 id="actionIcon"><img src="images/icon-16.png"/></h2>
-<label><input type="checkbox" id="openTab"/><span id="_openTab"></span></label>
-<fieldset><legend id="actionExtension"></legend>
-<label><input type="radio" name="ActionOpen" value="openOptionPopup" checked /><span id="_openOptionPopup"></span></label>
-<label><input type="radio" name="ActionOpen"  value="openOptionTab" /><span id="_openOptionTab"></span></label>
+<label><input type="checkbox" id="openTab"/><span id="_openTab">Open memrise tab when you click the extension</span></label>
+<fieldset><legend id="actionExtension">Open the extension (graphics ...)</legend>
+<label><input type="radio" name="ActionOpen" value="openOptionPopup" checked /><span id="_openOptionPopup">In a popup</span></label>
+<label><input type="radio" name="ActionOpen"  value="openOptionTab" /><span id="_openOptionTab">In a tab</span></label>
 <!--<label><input type="radio" name="ActionOpen"  value="openOptionWeb" />Dans la page d'acceuil de MEMRISE</label>-->
 </fieldset>
 </div>
-<h2 id="formatDate"></h2>
+<h2 id="formatDate">Formatting date of charts</h2>
 <label>
 <select id="lang">
 <option value="en">English</option>
@@ -61,13 +61,16 @@
 <option value="th">th</option>
 <option value="tr">tr</option>
 <option value="zh">zh</option>
-</select ><span id="textDate"></span></label>
+</select ><span id="textDate">For charts dates, select the language to display</span></label>
 
 
-<h2 id="languages"></h2>
-<label><input type="checkbox" id="cursiveHebrew" /><span id="textHebrew"> </span><span class="ViewCursiceHebrew">אָלֶף-בֵּית</span></label>
-
-<fieldset><legend id="Thanks"></legend>
+<h2 id="languages">Specific languages</h2>
+<div id="inputOption">
+<label><input type="checkbox" id="cursiveHebrew" /><span id="textHebrew">View square Hebrew text in cursive אָלֶף-בֵּית -></span><span class="ViewCursiceHebrew">אָלֶף-בֵּית</span></label>
+<label><input type="checkbox" id="ListenChoiceTTS" /><span id="ListenTTS">Text-To-Speech : To listen text, selected with your mouse a word or sentence(s). Languages supported : </span><span id="listeLanguage"></span></label>
+<label><input type="checkbox" id="ListenChoiceHebrew" disabled /><span id="ListenHebrew">TTS Hebrew : If you have need listen hebrew and the option above not supported hebrew language, selected this option. Selected with your mouse a word or sentence(s) and click on the player !</span></label>
+</div>
+<fieldset><legend id="Thanks">Thanks to</legend>
 <ul><li>Code Timer Control created by  <a href="https://github.com/carpiediem/">https://github.com/carpiediem/</a></li>
 <li>Find Cursive Hebrew Font "Dorian CLM Book Italic" by <a href="https://github.com/lawrence2507">Lawrence Wolf-Sonkin</a></li>
 <li>Debug extension by some users <a href="https://www.facebook.com/groups/405552132936697/">https://www.facebook.com/groups/405552132936697/</a></li>

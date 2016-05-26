@@ -12,7 +12,8 @@
           "128": "images/icon-128.png" },
 "permissions": [
 	"tabs",
-	"storage",	
+	"storage",
+	"tts",
 	"http://www.memrise.com/*"
   ],
 "content_scripts": [ {
@@ -21,7 +22,7 @@
 },
 {
   "matches": ["http://www.memrise.com/course/*/garden/*","http://www.memrise.com/garden/water/*"],
-  "js": ["js/hackTimerUserAction.js"]
+  "js": ["js/hackTimerUserAction.js","js/inject_listen.js"]
 }
 ],
 "background": {

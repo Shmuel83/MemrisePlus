@@ -77,7 +77,7 @@
 	"message": "Dans un popup",
 	"description": "Option : open in a popup"},
 "openOptionTab": {
-	"message": "In a tab",
+	"message": "Dans un nouvel onglet",
 	"description": "Option : open in a tab"},
 "formatDate": {
 	"message": "Format des dates pour les graphiques",
@@ -123,5 +123,11 @@
 	"description": "Options info"},
 "chat": {
 	"message": "Utilisez vos mots appris pour progresser d'avantage avec la communauté via un chat dans la page d'acceuil",
-	"description": "Options chat"}
+	"description": "Options chat"},
+"ListenHebrew": {
+	"message": "TTS Hebreu : Si vous avez besoin d'écouter l'hébreu mais que l'option au-dessus ne permet pas l'hébreu, sélectionnez cette option. Dans l'exercice choisisez la langue 'Hebrew' et sélectionner avec votre souris le mot ou le(s) phrase(s) et cliquez sur le player !",
+	"description": "Options Listen Hebrew"},
+"ListenTTS": {
+	"message": "Text-To-Speech : Dans l'exercice choisisez la langue et sélectionner le texte avec votre souris. Il ne reste plus qu'à écouter, le texte est parlé immédiatement . Languages supportés : ",
+	"description": "Options Listen TTS"}
 }

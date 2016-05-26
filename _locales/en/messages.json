@@ -123,5 +123,11 @@
 	"description": "Options info"},
 "chat": {
 	"message": "Use your words learned to make further progress with the community with a t'chat in the home page",
-	"description": "Options chat"}
+	"description": "Options chat"},
+"ListenHebrew": {
+	"message": "TTS Hebrew : If you have need listen hebrew and the option above not supported hebrew language, selected this option. Choose 'Hebrew' language in exercice and selected with your mouse a word or sentence(s) and click on the player !",
+	"description": "Options Listen Hebrew"},
+"ListenTTS": {
+	"message": "Text-To-Speech : To listen text, choose 'Hebrew' language in exercice and selected with your mouse a word or sentence(s). To hear the text , it's spoken immediately. Languages supported : ",
+	"description": "Options Listen TTS"}
 }
