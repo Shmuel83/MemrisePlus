@@ -22,7 +22,8 @@
 },
 {
   "matches": ["http://www.memrise.com/course/*/garden/*","http://www.memrise.com/garden/water/*"],
-  "js": ["js/hackTimerUserAction.js","js/inject_listen.js"]
+  "js": ["js/hackTimerUserAction.js","js/inject_listen.js"],
+  "css": ["css/inject_css.css"]
 }
 ],
 "background": {

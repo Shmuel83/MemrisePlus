@@ -1,14 +1,15 @@
 function checkSession() {
 	//Récupération Username (variable JSON : MEMRISE)	
-	chrome.tabs.executeScript(null,{code:"if(localStorage.getItem('username')){var myUser=localStorage['username']; myUser }"}, function(UserAwser) {if(UserAwser) {localStorage.setItem("username",UserAwser)} });
+	chrome.tabs.executeScript(null,{code:"if(localStorage.getItem('username')){var myUser=(localStorage['username']).replace(/<[^>]*>?/g, ''); myUser }"}, function(UserAwser) {if(UserAwser) {localStorage.setItem("username",UserAwser.replace(/<[^>]*>?/g, ''))} });
 }
 //Système d'onglet dans le popup
 $(function() { //Attendre que la page finisse de se charger avant d'effectuer les scripts
     checkSession();
 	$( "#tabs" ).tabs();
 	if (localStorage.getItem('username')) {
-		$(".helloworld").text(chrome.i18n.getMessage('Welcome') + localStorage.getItem('username'));
-		if(localStorage.getItem('username')=="undefined") {
+		var StorageUsername = (localStorage.getItem('username')).replace(/<[^>]*>?/g, '');
+		$(".helloworld").text(chrome.i18n.getMessage('Welcome') + StorageUsername);
+		if(StorageUsername=="undefined") {
 			$("#chartdiv").html("<a href='#' id='clickici'>Click on</a> to reload extension. If don't working, don't panic, go to extension tab and click on reload, or close chrome and open it");
 		$("#clickici").click(function() {
 			OnloadStreakGraph(true);
@@ -74,7 +75,7 @@ function open_about() {
 //Inclure fichier langue si ce n'est pas de l'anglais
 function include(file) {
     var oScript =  document.createElement("script");
-    oScript.src = "amcharts/amcharts/lang/"+ file +".js";
+    oScript.src = "amcharts/amcharts/lang/"+ file.replace(/<[^>]*>?/g, '') +".js";
     oScript.type = "text/javascript";
     document.body.appendChild(oScript);
 }
@@ -83,7 +84,7 @@ chrome.storage.sync.get({
   }, function(items) {
 	// On l'utilise :
 	if(items.Choice_lang!="en") {
-		include(items.Choice_lang);
+		include((items.Choice_lang).replace(/<[^>]*>?/g, ''));
 	}
  }
 );

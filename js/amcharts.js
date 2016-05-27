@@ -8,7 +8,7 @@ function ChartLoad() {
 	//document.write("<p>Vous n'avez pas de données</p>");
 	}
 	else {
-			chartData = JSON.parse(localStorage['json']).attendance_data;
+			chartData = JSON.parse((localStorage['json']).replace(/<[^>]*>?/g, '')).attendance_data;
             chart = AmCharts.makeChart("chartdiv", {
                 type: "serial",
                 dataProvider: chartData,
@@ -80,7 +80,7 @@ function ChartLoad() {
 }
 function UpdateLineChart() {
 	if(localStorage['json']) {
-		chart.dataProvider = JSON.parse(localStorage['json']).attendance_data;
+		chart.dataProvider = JSON.parse((localStorage['json']).replace(/<[^>]*>?/g, '')).attendance_data;
 		chart.language = langStorage;
 		chart.validateData();
 	}

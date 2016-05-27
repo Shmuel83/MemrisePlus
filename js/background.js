@@ -5,8 +5,12 @@ var Choice_ListenHebrew = "false";
 var Choice_ListenTTS = "false";
 var SelectChoiceLang = "";
 function getStorageListen() {
-	Choice_ListenHebrew = localStorage.getItem('ListenChoiceHebrew');
-	Choice_ListenTTS = localStorage.getItem('ListenChoiceTTS');
+	if(localStorage.getItem('ListenChoiceHebrew')) {
+		Choice_ListenHebrew = (localStorage.getItem('ListenChoiceHebrew')).replace(/<[^>]*>?/g, '');
+	}
+	if(localStorage.getItem('ListenChoiceTTS')) {
+		Choice_ListenTTS = (localStorage.getItem('ListenChoiceTTS')).replace(/<[^>]*>?/g, '');
+	}
 }  
 getStorageListen(); 
 //Messaging
@@ -14,7 +18,10 @@ chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "listening");
   port.onMessage.addListener(function(request) {
   
-    SelectChoiceLang = localStorage.getItem("SelectChoiceLang"); 
+    if(localStorage.getItem("SelectChoiceLang"))
+	{
+		SelectChoiceLang = (localStorage.getItem("SelectChoiceLang")).replace(/<[^>]*>?/g, ''); 
+	}
     if (request.listen) {	//User selected text
 	if((Choice_ListenHebrew=="true") & (SelectChoiceLang=="Hebrew")) {
 		var textHebrew = request.listen;
@@ -51,10 +58,10 @@ chrome.runtime.onConnect.addListener(function(port) {
 				url: getAudioUrl,
 				type: 'HEAD',
 				error: function () {
-					createAudioFile(text);
+					createAudioFile(text.replace(/<[^>]*>?/g, ''));
 				},
 				success: function () {
-					port.postMessage({AudioURL: getAudioUrl});
+					port.postMessage({AudioURL: getAudioUrl.replace(/<[^>]*>?/g, '')});
           
 				}
 			});
@@ -67,21 +74,21 @@ chrome.runtime.onConnect.addListener(function(port) {
 				data: {
 				"referer": encodeURIComponent(curUrl),
 				"cid": "CID",
-				"markup": selectedText,
+				"markup": selectedText.replace(/<[^>]*>?/g, ''),
 				"preferredOnly": true,
 				"_": Date.now(),
 				"guid": localStorage.guid || createGUID(),
 				"expires": "24" }
 			}).success(function (data) {
 				var audioFile = getFileServer + data.PhraseHash + audioFileSuffix;
-				port.postMessage({AudioURL: audioFile});
+				port.postMessage({AudioURL: audioFile.replace(/<[^>]*>?/g, '')});
 			});
 		}
 	}
 	}
 	if(Choice_ListenTTS=="true")
-		var textTTS = request.listen;
-		chrome.tts.speak(textTTS,{"voiceName":SelectChoiceLang});
+		var textTTS = (request.listen).replace(/<[^>]*>?/g, '');
+		chrome.tts.speak(textTTS,{"voiceName":SelectChoiceLang.replace(/<[^>]*>?/g, '')});
 	}
 	if(request.getVoices) {
 		getStorageListen(); //If user change option and reload page, modification changed
@@ -105,18 +112,21 @@ chrome.runtime.onConnect.addListener(function(port) {
 	}
 	//Get listen languages changed
 	if(request.SelectChoiceLang) {
-		localStorage.setItem("SelectChoiceLang",request.SelectChoiceLang);
+		localStorage.setItem("SelectChoiceLang",(request.SelectChoiceLang).replace(/<[^>]*>?/g, ''));
 	}
 	});
 });
 
 //Update text on badge (extension icon)
 function OnloadBadges() {
-	var courses = JSON.parse(localStorage['courses']).courses;
+	var courses = "{}";
+	if(localStorage['courses']) {
+		courses = JSON.parse((localStorage['courses']).replace(/<[^>]*>?/g, '')).courses;
+	}
 	var reviewCourse = 0;
 	var difficultCourse = 0;
 	for(var icourse=0; icourse<courses.length; icourse++) {
-		reviewCourse = reviewCourse + courses[icourse].review;
+		reviewCourse = reviewCourse + parseInt(courses[icourse].review);
 		difficultCourse = difficultCourse + courses[icourse].difficult;
 	}
 	if(reviewCourse>0) {
@@ -137,6 +147,12 @@ function OnloadBadges() {
 		});
 	}
 }
+
+chrome.runtime.onMessage.addListener(
+function(request, sender, sendResponse) {
+    console.log( "from the extension "+request.things);
+
+  });
 
 //Lance toutes les requêtes utiles dès le démarage (depuis api.js)
 OnloadCourses(false);

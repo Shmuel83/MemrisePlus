@@ -28,11 +28,11 @@ function UpdateAllChart() {
 
 //Update text on badge (extension icon)
 function OnloadBadges() {
-	var courses = JSON.parse(localStorage['courses']).courses;
+	var courses = JSON.parse((localStorage['courses']).replace(/<[^>]*>?/g, '')).courses;
 	var reviewCourse = 0;
 	var difficultCourse = 0;
 	for(var icourse=0; icourse<courses.length; icourse++) {
-		reviewCourse = reviewCourse + courses[icourse].review;
+		reviewCourse = reviewCourse + parseInt(courses[icourse].review);
 		difficultCourse = difficultCourse + courses[icourse].difficult;
 	}
 	if(reviewCourse>0) {

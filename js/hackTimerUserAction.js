@@ -8,11 +8,21 @@
 // @grant          none
 // @source		   https://github.com/carpiediem/memrise-enhancement-suite/blob/master/memrise-auto-pause.user.js
 // ==/UserScript==
+
+ //Get things of course
+$(".header-exit").click( function() {
+	console.log(".header-exit ,  MEMRISE.garden.session_ended : "+MEMRISE.garden.session_ended);
+	localStorage.setItem("difficult_items",(JSON.stringify(MEMRISE.data.difficult_items)).replace(/<[^>]*>?/g, ''));
+  });
 var onLoad = function($) {
   $("div.garden-timer div.txt").bind("DOMSubtreeModified", function() {
     if (!document.hasFocus()) MEMRISE.garden.pause();
   });
-
+  
+	//Get things of session
+	localStorage.setItem("sessionCourseId",parseInt(MEMRISE.garden.getTrackedCourseId()));
+	localStorage.setItem("sessionThings",(JSON.stringify(MEMRISE.garden.things)).replace(/<[^>]*>?/g, ''));
+	
 };
 //@description    Change sqare hebrew to cursive hebrew
     function InjectClassCursiveHebrew() {
@@ -69,25 +79,6 @@ var PoliceHebrewSquarre =     function SquarreHebrew() {
             ChoiceTest.css("font-family",false);
         }
     };
-/*
-//To delete vocalise
-function highlight($el, word) {
-        var text = $el.html();
-        text = text.replace(new RegExp(word,'g'), '');
-        $el.html(text);
-    }
-     
-    $.fn.highlight = function(word) {
-        return this.each(function() {
-            highlight($(this), word);
-        });
-    };
-
-$('body').highlight("ֲ");
-
-
-
-*/
 
 //@source		 https://github.com/carpiediem/memrise-enhancement-suite/blob/master/memrise-timer-controls.user.js
 var setCountdown = function setCountdown(currentSetting) {
@@ -201,7 +192,7 @@ document.head.appendChild (styleNode);
 
 
 //Lancement des injections (si option à true)
-injectWithJQ('$(\'<div id="timerControls" style="background-color:#ddd"><div id="timerToggle"></div><div id="delayToggle"></div></div>\').insertBefore( ".streak" )');
+injectWithJQ('$(".next-button").click(function() {alert("moi");}); $(\'<div id="timerControls" style="background-color:#ddd"><div id="timerToggle"></div><div id="delayToggle"></div></div>\').insertBefore( ".streak" )');
 chrome.storage.sync.get({
 	Choice_autoPause: true,
 	Choice_manageChrono: false,

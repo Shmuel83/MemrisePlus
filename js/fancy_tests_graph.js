@@ -6,7 +6,7 @@ function ChartFancyLoad() {
 		//document.write("<p>Vous n'avez pas de données</p>");
 	}
 	else {
-			chartFancyData = JSON.parse(localStorage['fancy']).data;
+			chartFancyData = JSON.parse((localStorage['fancy']).replace(/<[^>]*>?/g, '')).data;
    chartFancy = AmCharts.makeChart("chartdiv_fancy", {
      "type": "xy",
      "theme": "light",
@@ -84,7 +84,7 @@ function ChartFancyLoad() {
 	}
  }
  function UpdateFancyChart() {
-	 if(localStorage['fancy']) {
+	 if((localStorage['fancy']).replace(/<[^>]*>?/g, '')) {
 		chartFancy.dataProvider = chartFancyData = JSON.parse(localStorage['fancy']).data;
 		chartFancy.validateData();
 	 }

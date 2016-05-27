@@ -33,40 +33,39 @@ port.onMessage.addListener(function(msg) {
 			
 		}
 		if(msg.AudioURL) {	//Receive url to speech hebrew
-			createAudioPlayer(msg.AudioURL);
+			createAudioPlayer((msg.AudioURL).replace(/<[^>]*>?/g, ''));
 		}
 });
 function createAudioPlayer(audioLink) {
 			var audioPlayer = '<audio controls><source src="' + audioLink + '" id="audioSrc" type="audio/mpeg"></audio>'+textSelected;
-			$("#Listening").html(audioPlayer);
+			$("#Listening").html((audioPlayer));
 
 }
 //--------------------Show languages TTS and selected last choice--------------------------------------//
 function AddOptionLanguage(tabLanguages) {
-	var selectedLanguage = localStorage.getItem("SelectChoiceLang") || false;
+	var selectedLanguage = "";
+	if(localStorage.getItem("SelectChoiceLang")) {
+		selectedLanguage = (localStorage.getItem("SelectChoiceLang")).replace(/<[^>]*>?/g, '') ;
+	}
 	var flagSelected = "";
+	document.getElementById('audioHebrew').hidden = "hidden";
 	for (var i = 0; i < tabLanguages.length; i++) {	//List all languages supported by TTS
 		flagSelected = "";
 		if(selectedLanguage == tabLanguages[i]) {
 			flagSelected = "selected";	//:selected last choice for that each exercice, user don't show native if is choose Google French by exemple
+			if(selectedLanguage=="Hebrew") {
+				document.getElementById('audioHebrew').hidden = "";
+			}
 		}
         $("#ChoiceLang").append("<option value='"+tabLanguages[i]+"' "+flagSelected+">"+tabLanguages[i]+"</option>");	//Add language on select
-		//------------Init-audio-widget--------//
-		console.log(selectedLanguage);
-		if(selectedLanguage=="Hebrew") {
-			document.getElementById('audioHebrew').hidden = "";
-		}
-		else {
-			document.getElementById('audioHebrew').hidden = "hidden";
-		}
 		  
     }
 }
 $("select").change(function(){
-	port.postMessage({SelectChoiceLang: $("select").val()});
-	localStorage.setItem("SelectChoiceLang",$("select").val());
+	port.postMessage({SelectChoiceLang: ($("select").val()).replace(/<[^>]*>?/g, '')});
+	localStorage.setItem("SelectChoiceLang",($("select").val()).replace(/<[^>]*>?/g, ''));
 	if($("select").val()=="Hebrew") {
-		 document.getElementById('audioHebrew').hidden = "";
+		 document.getElementById('audioHebrew').hidden = false;
 	}
 	else {
 		document.getElementById('audioHebrew').hidden = "hidden";

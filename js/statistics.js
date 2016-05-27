@@ -6,6 +6,7 @@ function round2Dec(intDec){
 }
 //Statistiques du meilleurs moments à apprendre/du moment à ne pas apprendre
 if(localStorage.getItem('fancy')==null) {
+	//to do something
 }
 else {
 			var bestHour;
@@ -17,7 +18,7 @@ else {
 			var tempTaux = Array();
 			var testMoyennage=0;
 			var MoyenneSur1Heure;
-			var JSONFancyData = JSON.parse(localStorage['fancy']).data;
+			var JSONFancyData = JSON.parse((localStorage['fancy']).replace(/<[^>]*>?/g, '')).data;
 //-----------------Algorithme de calcul de l'heure où le taux de réussite est la plus grande (à 15minute près)-----------------------------------------//
 			
 			//Tri des résultats JSON par ordre horaire de 0:00 à 24:00 sous format décimal
