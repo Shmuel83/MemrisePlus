@@ -18,7 +18,7 @@
   ],
 "content_scripts": [ {
   "matches": ["http://www.memrise.com/*"],
-  "js": ["js/jquery_2.2.0.min.js","js/insertScript.js"]
+  "js": ["js/jquery-2.2.4.min.js","js/insertScript.js"]
 },
 {
   "matches": ["http://www.memrise.com/course/*/garden/*","http://www.memrise.com/garden/water/*"],
