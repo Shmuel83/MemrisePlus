@@ -1,7 +1,7 @@
 {
 "name" :"MEMRISE+",
 "short_name" : "memrise +",
-"version" : "1.0.3",
+"version" : "1.0.4",
 "manifest_version" :2,
 "default_locale": "en",
 "description" :"For memrise website, with this extension you can add a timer configuration, transform square hebrew at cursive hebrew, show charts",

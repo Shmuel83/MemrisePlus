@@ -150,7 +150,7 @@ function OnloadBadges() {
 
 chrome.runtime.onMessage.addListener(
 function(request, sender, sendResponse) {
-    console.log( "from the extension "+request.things);
+	localStorage.setItem("CourseThings",request.things);
 
   });
 

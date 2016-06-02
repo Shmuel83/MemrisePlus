@@ -9,21 +9,48 @@
 // @source		   https://github.com/carpiediem/memrise-enhancement-suite/blob/master/memrise-auto-pause.user.js
 // ==/UserScript==
 
+var is_CursiveHebrew = false;
  //Get things of course
-$(".header-exit").click( function() {
-	console.log(".header-exit ,  MEMRISE.garden.session_ended : "+MEMRISE.garden.session_ended);
-	localStorage.setItem("difficult_items",(JSON.stringify(MEMRISE.data.difficult_items)).replace(/<[^>]*>?/g, ''));
-  });
+ $('.header-exit').click( function() {
+	 chrome.runtime.sendMessage({things: localStorage.getItem("sessionCourses")});
+ });
+
+$(document).click(function(event) {
+  var theId =  $(event.target).context.className;
+  if((theId=="next-icon")|(theId=="shiny-box choice clearfix incorrect")|(theId=="shiny-box choice clearfix correct")|(theId=="index")|(theId=="val")|(theId=="marking-icon cross")|(theId=="marking-icon tick")) {	//Event click Next button
+	  if(is_CursiveHebrew = true) { //Mode Cursive button automaticly
+		  $("#changeHebrew").html("<button style='padding:5px 10px 5px 10px; font-family:\"\"' OnClick='SquarreHebrew()'>א</button>");
+	  }
+  }
+});
+
 var onLoad = function($) {
   $("div.garden-timer div.txt").bind("DOMSubtreeModified", function() {
     if (!document.hasFocus()) MEMRISE.garden.pause();
   });
-  
-	//Get things of session
-	localStorage.setItem("sessionCourseId",parseInt(MEMRISE.garden.getTrackedCourseId()));
-	localStorage.setItem("sessionThings",(JSON.stringify(MEMRISE.garden.things)).replace(/<[^>]*>?/g, ''));
-	
+
+ //Get things of course session
+function getThings() {
+
+	var getStorage = localStorage.getItem("sessionCourses");
+	var getCourseId = MEMRISE.garden.getTrackedCourseId();
+	var getThings = MEMRISE.garden.things;
+	var setThings = new Array();
+	var CourseObj = new Object();
+	var boucle = 0;
+	for(key in getThings) { 
+		setThings[boucle] = parseInt(getThings[key].id);
+		boucle++;
+	}
+	CourseObj.course = parseInt(getCourseId);
+	CourseObj.things = setThings;
+	localStorage.setItem("sessionCourses",JSON.stringify(CourseObj));	
+}
+getThings();	
 };
+
+	
+
 //@description    Change sqare hebrew to cursive hebrew
     function InjectClassCursiveHebrew() {
 		var styleNode           = document.createElement ("style");
@@ -62,7 +89,7 @@ var PoliceHebrewSquarre =     function SquarreHebrew() {
 		var Keyboard2Test = $(".keyboard .shiny-box");
         var ResponseTest = $(".primary .row-value .primary-value");
         var ChoiceTest = $(".choices .choice");
-		 $("#changeHebrew").html("<button style='padding:5px 10px 5px 10px; font-family:\"CursiveHebrew\"' OnClick='CursiveHebrew()'>א</button>");
+		$("#changeHebrew").html("<button style='padding:5px 10px 5px 10px; font-family:\"CursiveHebrew\"' OnClick='CursiveHebrew()'>א</button>");
         if(inputTest.length){
             inputTest.css("font-family",false);
         }
@@ -192,7 +219,9 @@ document.head.appendChild (styleNode);
 
 
 //Lancement des injections (si option à true)
-injectWithJQ('$(".next-button").click(function() {alert("moi");}); $(\'<div id="timerControls" style="background-color:#ddd"><div id="timerToggle"></div><div id="delayToggle"></div></div>\').insertBefore( ".streak" )');
+injectWithJQ('$(\'<div id="timerControls" style="background-color:#ddd"><div id="timerToggle"></div><div id="delayToggle"></div></div>\').insertBefore( ".streak" )');
+//injectWithJQ("$(document).click(function() {console.log('document'); if(MEMRISE.garden.session_ended) {console.log('EndOfSession');}}); $('.header-exit').click( function() {var difficultItems =''; if(1){ difficultItems = JSON.stringify(MEMRISE.garden.things); console.log('.header-exit ,  MEMRISE.garden.session_ended : '+MEMRISE.garden.session_ended); chrome.runtime.sendMessage('bjpplnaceahfdaadniohphlfidijifdg',{things: difficultItems});}})");
+
 chrome.storage.sync.get({
 	Choice_autoPause: true,
 	Choice_manageChrono: false,
@@ -211,5 +240,6 @@ chrome.storage.sync.get({
             injectWithJQ(PoliceHebrewCursive);
             injectWithJQ(PoliceHebrewSquarre);
             InjectClassCursiveHebrew();
+			is_CursiveHebrew = true;
         }
   });

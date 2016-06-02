@@ -15,5 +15,3 @@ chrome.storage.sync.get({
 		}
 		
   });
-  
-  

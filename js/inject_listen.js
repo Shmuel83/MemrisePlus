@@ -65,7 +65,7 @@ $("select").change(function(){
 	port.postMessage({SelectChoiceLang: ($("select").val()).replace(/<[^>]*>?/g, '')});
 	localStorage.setItem("SelectChoiceLang",($("select").val()).replace(/<[^>]*>?/g, ''));
 	if($("select").val()=="Hebrew") {
-		 document.getElementById('audioHebrew').hidden = false;
+		 document.getElementById('audioHebrew').hidden = "";
 	}
 	else {
 		document.getElementById('audioHebrew').hidden = "hidden";

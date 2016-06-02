@@ -8,6 +8,7 @@ var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter
 	if(is_popup) {
 		coursesView();
 	}
+	OnloadBadges();
 	return "success";
   })
   .fail(function() {
@@ -18,8 +19,8 @@ var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter
   });
 }
 //Recherche détail d'un cours
-function OnloadCourseDetail(courseId) {
-var url_courseDetail = "http://www.memrise.com/api/course/get/?course_id=" + courseId +"&session_slug=review_course";
+function OnloadCourseDetail(courseId,ArrayThingsId) {
+var url_courseDetail = "http://www.memrise.com/api/thing/stats/?course_id=" + courseId +"&thing_ids="+ArrayThingsId;
         $.getJSON(url_courseDetail, function (data) {
             localStorage.setItem("courseDetail",(JSON.stringify(data)).replace(/<[^>]*>?/g, ''));
         })

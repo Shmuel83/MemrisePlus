@@ -2,11 +2,17 @@
 function coursesView() {
 var courses = JSON.parse((localStorage['courses']).replace(/<[^>]*>?/g, '')).courses;
 $('#divCourses').html("");
+//var things = JSON.parse(localStorage["CourseThings"]);
 for(var icourse=0; icourse<courses.length; icourse++) {
 	var nameCourse = (courses[icourse].name).replace(/<[^>]*>?/g, '');
 	var completed = parseInt(courses[icourse].percent_complete);
 	var idCourse = parseInt(courses[icourse].id);
-	$('#divCourses').append("<div class='flex-courses'>"+ nameCourse +" "+chrome.i18n.getMessage('CourseDo')+" :<div id='g_"+ idCourse +"' class='gauge'></div></div>");
+	var textThings = "";
+	/*if(parseInt(things.course)==idCourse) {
+		textThings = things.things;
+	}*/
+	
+	$('#divCourses').append("<div id='header' class='flex-courses'>"+ nameCourse +" "+chrome.i18n.getMessage('CourseDo')+" :<div id='g_"+ idCourse +"' class='gauge'></div></div>");
 
 
 var g1;
@@ -21,7 +27,6 @@ var g1;
             counter: true,
             hideInnerShadow: true
         });
-		//console.log(completed);
 }
 };
 $( document ).ready(function() {

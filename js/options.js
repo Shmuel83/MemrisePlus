@@ -5,12 +5,11 @@ function save_options(e) {
 	var get_openTab = document.getElementById('openTab').checked;
 	var get_chat = document.getElementById('Chat').checked;
 	var get_Rankoverlord = document.getElementById('Rankoverlord').checked;
-	var get_open = $('[name="ActionOpen"]:checked').val();
-	var get_lang = $('#lang').val();
+	var get_open = ($('[name="ActionOpen"]:checked').val()).replace(/<[^>]*>?/g, '');
+	var get_lang = ($('#lang').val()).replace(/<[^>]*>?/g, '');
 	var get_PoliceHebrew = document.getElementById('cursiveHebrew').checked;
 	var get_Choice_ListenTTS = document.getElementById('ListenChoiceTTS').checked;
 	var get_Choice_ListenHebrew = document.getElementById('ListenChoiceHebrew').checked;
-	var ChoiceId = e.target.id;
 	
 	localStorage.setItem('ListenChoiceTTS',get_Choice_ListenTTS);
 	localStorage.setItem('ListenChoiceHebrew',get_Choice_ListenHebrew);
@@ -61,14 +60,14 @@ function restore_options() {
 	document.getElementById('openTab').checked = items.Choice_openTab;
 	document.getElementById('Chat').checked = items.Choice_chat;
 	document.getElementById('Rankoverlord').checked = items.Choice_fun;
-	$( '[value="'+items.Choice_open+'"]' ).prop( "checked", true );
-	$('#lang [value="'+items.Choice_lang+'"]').prop('selected', true)
+	$( '[value="'+ (items.Choice_open).replace(/<[^>]*>?/g, '') + '"]' ).prop( "checked", true );
+	$('#lang [value="'+ (items.Choice_lang).replace(/<[^>]*>?/g, '') +'"]').prop('selected', true)
 	document.getElementById('cursiveHebrew').checked = items.Choice_PoliceHebrew;
 	document.getElementById('ListenChoiceTTS').checked = items.Choice_ListenTTS;
 	document.getElementById('ListenChoiceHebrew').checked = items.Choice_ListenHebrew;
 	if(document.getElementById('ListenChoiceTTS').checked) {
 		document.getElementById('ListenChoiceHebrew').disabled = false;
-		document.getElementById('ListenChoiceHebrew').style.color = "#dddddd";
+		document.getElementById('ListenHebrew').style.color = "";
 	}
   });
 }
@@ -77,12 +76,12 @@ $("input").click(function(e){
  
  if(document.getElementById('ListenChoiceTTS').checked) {
 	 document.getElementById('ListenChoiceHebrew').disabled = false;
-	 document.getElementById('ListenChoiceHebrew').style.color = "#dddddd";
+	 document.getElementById('ListenHebrew').style.color = "";
  }
  else {
 	 document.getElementById('ListenChoiceHebrew').checked = false;
 	 document.getElementById('ListenChoiceHebrew').disabled = "";
-	 document.getElementById('ListenChoiceHebrew').style.color = "";
+	 document.getElementById('ListenHebrew').style.color = "#dddddd";
  }
  save_options(e);
 });

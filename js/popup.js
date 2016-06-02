@@ -1,6 +1,6 @@
 function checkSession() {
 	//Récupération Username (variable JSON : MEMRISE)	
-	chrome.tabs.executeScript(null,{code:"if(localStorage.getItem('username')){var myUser=(localStorage['username']).replace(/<[^>]*>?/g, ''); myUser }"}, function(UserAwser) {if(UserAwser) {localStorage.setItem("username",UserAwser.replace(/<[^>]*>?/g, ''))} });
+	chrome.tabs.executeScript(null,{code:"if(localStorage.getItem('username')){var myUser=(localStorage['username']); myUser }"}, function(UserAwser) {if(UserAwser) {localStorage.setItem("username",UserAwser)} });
 }
 //Système d'onglet dans le popup
 $(function() { //Attendre que la page finisse de se charger avant d'effectuer les scripts
