@@ -197,6 +197,64 @@ $('#delayToggle').click(function() {
 });
 }
 
+var listTTSlanguage = function getListTTSlanguage() {
+	
+	var listLangTTS = [
+            {name: 'UK English Female', flag: 'en-GB'},
+            {name: 'US English Female', flag: 'en-US'},
+			{name: 'Afrikaans Male', flag: 'af'},
+			{name: 'Albanian Male', flag: 'sq'},
+            {name: 'Arabic Female', flag: 'ar-SA'},
+            {name: 'Armenian Male', flag: 'hy'},
+            {name: 'Australian Female', flag: 'en-AU'},
+			{name: 'Bosnian Male', flag: 'bs'},
+            {name: 'Brazilian Portuguese Female', flag: 'pt-BR'},
+			{name: 'Catalan Male', flag: 'ca'},
+            {name: 'Chinese Female', flag: 'zh-CN'},
+			{name: 'Croatian Male', flag: 'hr'},
+			{name: 'Czech Male', flag: 'cs-CZ'},
+            {name: 'Danish Female', flag: 'da'},
+            {name: 'Deutsch Female', flag: 'de'},
+            {name: 'Dutch Female', flag: 'nl'},
+			{name: 'Esperanto Male', flag: 'eo'},
+            {name: 'Finnish Female', flag: 'fi'},
+            {name: 'French Female', flag: 'fr-FR'},
+            {name: 'Greek Female', flag: 'el'},
+            {name: 'Hindi Female', flag: 'hi'},
+            {name: 'Hungarian Female', flag: 'hu'},
+			{name: 'Icelandic Male', flag: 'is'},
+            {name: 'Indonesian Female', flag: 'id'},
+            {name: 'Italian Female', flag: 'it'},
+            {name: 'Japanese Female', flag: 'ja'},
+            {name: 'Korean Female', flag: 'ko'},
+			{name: 'Latin Male', flag: 'la'},
+			{name: 'Latvian Male', flag: 'lv'},
+			{name: 'Macedonian Male', flag: 'mk'},
+			{name: 'Montenegrin Male', flag: 'sr-ME'},
+            {name: 'Norwegian Female', flag: 'no'},
+            {name: 'Polish Female', flag: 'pl'},
+            {name: 'Portuguese Female', flag: 'pt-PT'},
+            {name: 'Romanian Male', flag: 'ro'},
+            {name: 'Russian Female', flag: 'ru'},
+			{name: 'Serbian Male', flag: 'sr'},
+			{name: 'Slovak Male', flag: 'sk'},
+            {name: 'Spanish Female', flag: 'es'},
+            {name: 'Spanish Latin American Female', flag: 'es-419'},
+			{name: 'Swahili Male', flag: 'sw'},
+            {name: 'Swedish Female', flag: 'sv'},
+            {name: 'Tamil Female', flag: 'hi'},
+            {name: 'Thai Female', flag: 'th'},
+            {name: 'Turkish Female', flag: 'tr'},
+			{name: 'Vietnamese Female', flag: 'vi'},
+			{name: 'Welsh Male', flag: 'cy'}
+
+        ];
+		
+		return listLangTTS;
+	
+	
+}
+
 //Fonction pour injecter du script dans le site web
 var injectWithJQOnLoad = function(f) {
 	var script = document.createElement('script');
@@ -222,10 +280,12 @@ document.head.appendChild (styleNode);
 injectWithJQ('$(\'<div id="timerControls" style="background-color:#ddd"><div id="timerToggle"></div><div id="delayToggle"></div></div>\').insertBefore( ".streak" )');
 //injectWithJQ("$(document).click(function() {console.log('document'); if(MEMRISE.garden.session_ended) {console.log('EndOfSession');}}); $('.header-exit').click( function() {var difficultItems =''; if(1){ difficultItems = JSON.stringify(MEMRISE.garden.things); console.log('.header-exit ,  MEMRISE.garden.session_ended : '+MEMRISE.garden.session_ended); chrome.runtime.sendMessage('bjpplnaceahfdaadniohphlfidijifdg',{things: difficultItems});}})");
 
+try {
 chrome.storage.sync.get({
 	Choice_autoPause: true,
 	Choice_manageChrono: false,
-    Choice_PoliceHebrew: false
+    Choice_PoliceHebrew: false,
+	Choice_ListenTTS: false
   }, function(items) {
 		if(items.Choice_autoPause) {
 			injectWithJQOnLoad(onLoad);
@@ -242,4 +302,37 @@ chrome.storage.sync.get({
             InjectClassCursiveHebrew();
 			is_CursiveHebrew = true;
         }
+		if(items.Choice_ListenTTS) {
+			injectWithJQ(listTTSlanguage);
+		}
   });
+  console.log("try sync");
+}
+catch(exception){ //To firefox. sync not compatible
+	chrome.storage.local.get({
+	Choice_autoPause: true,
+	Choice_manageChrono: false,
+    Choice_PoliceHebrew: false,
+	Choice_ListenTTS: false
+  }, function(items) {
+		if(items.Choice_autoPause) {
+			injectWithJQOnLoad(onLoad);
+		}
+		if(items.Choice_manageChrono) {
+            injectWithJQ(setCountdown);
+            injectWithJQ(setDelay);
+			injectWithJQ(UserAction);
+			injectWithJQ("ProgramTimer();");
+		}
+        if(items.Choice_PoliceHebrew) {
+            injectWithJQ(PoliceHebrewCursive);
+            injectWithJQ(PoliceHebrewSquarre);
+            InjectClassCursiveHebrew();
+			is_CursiveHebrew = true;
+        }
+		if(items.Choice_ListenTTS) {
+			injectWithJQ(listTTSlanguage);
+		}
+  });
+  console.log("catch !sync");
+}

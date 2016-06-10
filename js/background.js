@@ -1,4 +1,57 @@
 //Background, load when Chrome start
+function getListTTSlanguage() {
+        this.responsivevoices = [
+            {name: 'UK English Female', flag: 'en-GB'},
+            {name: 'US English Female', flag: 'en-US'},
+			{name: 'Afrikaans Male', flag: 'af'},
+			{name: 'Albanian Male', flag: 'sq'},
+            {name: 'Arabic Female', flag: 'ar-SA'},
+            {name: 'Armenian Male', flag: 'hy'},
+            {name: 'Australian Female', flag: 'en-AU'},
+			{name: 'Bosnian Male', flag: 'bs'},
+            {name: 'Brazilian Portuguese Female', flag: 'pt-BR'},
+			{name: 'Catalan Male', flag: 'ca'},
+            {name: 'Chinese Female', flag: 'zh-CN'},
+			{name: 'Croatian Male', flag: 'hr'},
+			{name: 'Czech Male', flag: 'cs-CZ'},
+            {name: 'Danish Female', flag: 'da'},
+            {name: 'Deutsch Female', flag: 'de'},
+            {name: 'Dutch Female', flag: 'nl'},
+			{name: 'Esperanto Male', flag: 'eo'},
+            {name: 'Finnish Female', flag: 'fi'},
+            {name: 'French Female', flag: 'fr-FR'},
+            {name: 'Greek Female', flag: 'el'},
+            {name: 'Hindi Female', flag: 'hi'},
+            {name: 'Hungarian Female', flag: 'hu'},
+			{name: 'Icelandic Male', flag: 'is'},
+            {name: 'Indonesian Female', flag: 'id'},
+            {name: 'Italian Female', flag: 'it'},
+            {name: 'Japanese Female', flag: 'ja'},
+            {name: 'Korean Female', flag: 'ko'},
+			{name: 'Latin Male', flag: 'la'},
+			{name: 'Latvian Male', flag: 'lv'},
+			{name: 'Macedonian Male', flag: 'mk'},
+			{name: 'Montenegrin Male', flag: 'sr-ME'},
+            {name: 'Norwegian Female', flag: 'no'},
+            {name: 'Polish Female', flag: 'pl'},
+            {name: 'Portuguese Female', flag: 'pt-PT'},
+            {name: 'Romanian Male', flag: 'ro'},
+            {name: 'Russian Female', flag: 'ru'},
+			{name: 'Serbian Male', flag: 'sr'},
+			{name: 'Slovak Male', flag: 'sk'},
+            {name: 'Spanish Female', flag: 'es'},
+            {name: 'Spanish Latin American Female', flag: 'es-419'},
+			{name: 'Swahili Male', flag: 'sw'},
+            {name: 'Swedish Female', flag: 'sv'},
+            {name: 'Tamil Female', flag: 'hi'},
+            {name: 'Thai Female', flag: 'th'},
+            {name: 'Turkish Female', flag: 'tr'},
+			{name: 'Vietnamese Female', flag: 'vi'},
+			{name: 'Welsh Male', flag: 'cy'}			
+
+        ];
+		return this.responsivevoices;
+}
 
 //Get options choices by user
 var Choice_ListenHebrew = "false";
@@ -12,7 +65,22 @@ function getStorageListen() {
 		Choice_ListenTTS = (localStorage.getItem('ListenChoiceTTS')).replace(/<[^>]*>?/g, '');
 	}
 }  
-getStorageListen(); 
+getStorageListen();
+
+//Exeption to Opera Chrome.TTS exist, but only native language
+function ExceptionLanguage(portListener) {
+	var listTTS = getListTTSlanguage();
+	var Voices = new Array();
+	for (var i = 0; i < listTTS.length; i++) {
+		Voices[i] = listTTS[i].name;				
+	}
+	//If user choose TTS Hebrew, add that
+	if(Choice_ListenHebrew=="true") {
+		Voices[Voices.length] = "Hebrew";
+	}
+	portListener.postMessage({OptionsVoices: Voices});	//Send all languages	
+}
+ 
 //Messaging
 chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "listening");
@@ -86,25 +154,61 @@ chrome.runtime.onConnect.addListener(function(port) {
 		}
 	}
 	}
-	if(Choice_ListenTTS=="true")
+	if(Choice_ListenTTS=="true") {
 		var textTTS = (request.listen).replace(/<[^>]*>?/g, '');
-		chrome.tts.speak(textTTS,{"voiceName":SelectChoiceLang.replace(/<[^>]*>?/g, '')});
+		
+		if(SelectChoiceLang.substring(0, 6)=="Google") { //TTS Speech Google
+			chrome.tts.speak(textTTS,{"voiceName":SelectChoiceLang.replace(/<[^>]*>?/g, '')});
+		}
+		else {
+			var urlTTS = 'https://code.responsivevoice.org/develop/getvoice.php/?t=' + textTTS;
+			var langueChoice = "en-US"; //By default, English language
+			var listTTS = getListTTSlanguage();
+			for (var i = 0; i < listTTS.length; i++) {
+				if(SelectChoiceLang==listTTS[i].name)	{
+					langueChoice = listTTS[i].flag;
+					break;
+				}	  
+			}
+			urlTTS = urlTTS + '&tl=' + langueChoice;
+			port.postMessage({AudioURL: urlTTS});
+		}
+	}
 	}
 	if(request.getVoices) {
 		getStorageListen(); //If user change option and reload page, modification changed
 		var Voices = new Array();
 		if(Choice_ListenTTS=="true") { //If user choice listenTTS
-			chrome.tts.getVoices(
-			function(voices) {
-				for (var i = 0; i < voices.length; i++) {
-				Voices[i] = voices[i].voiceName;		  
+			try {	//TTS exist (Not exit on Firefox and OPERA, only of Chrome)
+				chrome.tts.getVoices(
+				function(voices) {
+					if(voices.length<=1) {	//Generate exeption if only Native language (for Opera)
+						throw new ExceptionLanguage(port);
+					}
+					else {
+						for (var i = 0; i < voices.length; i++) {
+							Voices[i] = voices[i].voiceName;		  
+						}
+						//If user choose TTS Hebrew, add that
+						if(Choice_ListenHebrew=="true") {
+							Voices[voices.length] = "Hebrew";
+						}
+						port.postMessage({OptionsVoices: Voices});	//Send all languages
+					}	
+				});
+			}
+			catch(exception){
+				var listTTS = getListTTSlanguage();
+				for (var i = 0; i < listTTS.length; i++) {
+					Voices[i] = listTTS[i].name;				
 				}
 				//If user choose TTS Hebrew, add that
 				if(Choice_ListenHebrew=="true") {
-					Voices[voices.length] = "Hebrew";
+					Voices[Voices.length] = "Hebrew";
 				}
-				port.postMessage({OptionsVoices: Voices});	//Send all languages
-			});
+				port.postMessage({OptionsVoices: Voices});	//Send all languages			
+			}
+
 		}
 		else {	//If user don't need listen, hidden select
 			port.postMessage({OptionsVoices: false});

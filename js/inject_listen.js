@@ -1,4 +1,4 @@
-$("#left-area").append("<div><div id='Listening'><audio hidden id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'><source src='' id='audioSrc' type='audio/mpeg'></audio></div><select hidden id='ChoiceLang'></select></div>"); //Add button
+$("#left-area").append("<div><div id='Listening'><audio hidden id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'></audio><span id='ListenToSpeech'></span></div><select hidden id='ChoiceLang'></select></div>"); //Add button
 	//Get select text to translate 
 var port = chrome.runtime.connect({name: "listening"});
 var textSelected="";
@@ -37,24 +37,29 @@ port.onMessage.addListener(function(msg) {
 		}
 });
 function createAudioPlayer(audioLink) {
-			var audioPlayer = '<audio controls><source src="' + audioLink + '" id="audioSrc" type="audio/mpeg"></audio>'+textSelected;
-			$("#Listening").html((audioPlayer));
+			
+			var audio = document.getElementById('audioHebrew');
+			document.getElementById('audioHebrew').hidden = "";
+			audio.setAttribute("src", audioLink);
+			audio.load();
+			audio.play();
+			$("#ListenToSpeech").text(textSelected);
 
 }
 //--------------------Show languages TTS and selected last choice--------------------------------------//
 function AddOptionLanguage(tabLanguages) {
 	var selectedLanguage = "";
-	if(localStorage.getItem("SelectChoiceLang")) {
+	if(localStorage.getItem("SelectChoiceLang")) { //Select last language choice by user
 		selectedLanguage = (localStorage.getItem("SelectChoiceLang")).replace(/<[^>]*>?/g, '') ;
 	}
 	var flagSelected = "";
-	document.getElementById('audioHebrew').hidden = "hidden";
+	$("#Listening").html("");
 	for (var i = 0; i < tabLanguages.length; i++) {	//List all languages supported by TTS
 		flagSelected = "";
 		if(selectedLanguage == tabLanguages[i]) {
 			flagSelected = "selected";	//:selected last choice for that each exercice, user don't show native if is choose Google French by exemple
 			if(selectedLanguage=="Hebrew") {
-				document.getElementById('audioHebrew').hidden = "";
+				$("#Listening").html("<audio id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'></audio><span id='ListenToSpeech'></span>");
 			}
 		}
         $("#ChoiceLang").append("<option value='"+tabLanguages[i]+"' "+flagSelected+">"+tabLanguages[i]+"</option>");	//Add language on select
@@ -64,10 +69,10 @@ function AddOptionLanguage(tabLanguages) {
 $("select").change(function(){
 	port.postMessage({SelectChoiceLang: ($("select").val()).replace(/<[^>]*>?/g, '')});
 	localStorage.setItem("SelectChoiceLang",($("select").val()).replace(/<[^>]*>?/g, ''));
-	if($("select").val()=="Hebrew") {
-		 document.getElementById('audioHebrew').hidden = "";
+	if(($("select").val()=="native")|($("select").val().substring(0, 6)=="Google")) {
+		$("#Listening").html("");
 	}
 	else {
-		document.getElementById('audioHebrew').hidden = "hidden";
+		$("#Listening").html("<audio id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'></audio><span id='ListenToSpeech'></span>");
 	}
 });

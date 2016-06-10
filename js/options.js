@@ -112,15 +112,94 @@ $("#ListenTTS").text(chrome.i18n.getMessage('ListenTTS'));
 //Get extension version. Write into footbar
 $("#version").text("version "+(chrome.runtime.getManifest().version+ " "));
 
-var Voices = "Native";
+//------------------------------------Options Languages TTS Google, TTS ResponsiveVoice and TTS Hebrew-------------------------//
+//TTS ResponsiveVoice
+function getListTTSlanguage() {
+        this.responsivevoices = [
+            {name: 'UK English Female', flag: 'en-GB'},
+            {name: 'US English Female', flag: 'en-US'},
+			{name: 'Afrikaans Male', flag: 'af'},
+			{name: 'Albanian Male', flag: 'sq'},
+            {name: 'Arabic Female', flag: 'ar-SA'},
+            {name: 'Armenian Male', flag: 'hy'},
+            {name: 'Australian Female', flag: 'en-AU'},
+			{name: 'Bosnian Male', flag: 'bs'},
+            {name: 'Brazilian Portuguese Female', flag: 'pt-BR'},
+			{name: 'Catalan Male', flag: 'ca'},
+            {name: 'Chinese Female', flag: 'zh-CN'},
+			{name: 'Croatian Male', flag: 'hr'},
+			{name: 'Czech Male', flag: 'cs-CZ'},
+            {name: 'Danish Female', flag: 'da'},
+            {name: 'Deutsch Female', flag: 'de'},
+            {name: 'Dutch Female', flag: 'nl'},
+			{name: 'Esperanto Male', flag: 'eo'},
+            {name: 'Finnish Female', flag: 'fi'},
+            {name: 'French Female', flag: 'fr-FR'},
+            {name: 'Greek Female', flag: 'el'},
+            {name: 'Hindi Female', flag: 'hi'},
+            {name: 'Hungarian Female', flag: 'hu'},
+			{name: 'Icelandic Male', flag: 'is'},
+            {name: 'Indonesian Female', flag: 'id'},
+            {name: 'Italian Female', flag: 'it'},
+            {name: 'Japanese Female', flag: 'ja'},
+            {name: 'Korean Female', flag: 'ko'},
+			{name: 'Latin Male', flag: 'la'},
+			{name: 'Latvian Male', flag: 'lv'},
+			{name: 'Macedonian Male', flag: 'mk'},
+			{name: 'Montenegrin Male', flag: 'sr-ME'},
+            {name: 'Norwegian Female', flag: 'no'},
+            {name: 'Polish Female', flag: 'pl'},
+            {name: 'Portuguese Female', flag: 'pt-PT'},
+            {name: 'Romanian Male', flag: 'ro'},
+            {name: 'Russian Female', flag: 'ru'},
+			{name: 'Serbian Male', flag: 'sr'},
+			{name: 'Slovak Male', flag: 'sk'},
+            {name: 'Spanish Female', flag: 'es'},
+            {name: 'Spanish Latin American Female', flag: 'es-419'},
+			{name: 'Swahili Male', flag: 'sw'},
+            {name: 'Swedish Female', flag: 'sv'},
+            {name: 'Tamil Female', flag: 'hi'},
+            {name: 'Thai Female', flag: 'th'},
+            {name: 'Turkish Female', flag: 'tr'},
+			{name: 'Vietnamese Female', flag: 'vi'},
+			{name: 'Welsh Male', flag: 'cy'}			
+
+        ];
+		return this.responsivevoices;
+}
+var Voices = "Native"; //To TTS Google
+//Exeption to Opera Chrome.TTS exist, but only native language
+function ExceptionLanguage() {
+	var listTTS = getListTTSlanguage();
+	Voices = "UK English Female"; //Delete Native and add first language
+	for (var i = 1; i < listTTS.length; i++) {
+		Voices = Voices + "," + listTTS[i].name;				
+	}
+	$("#listeLanguage").append("<i><small>"+Voices+"</small></i>");
+}
+
+try { //To Chrome
 chrome.tts.getVoices(
-          function(voices) {
+    function(voices) {
+		if(voices.length<=1) {	//Generate exeption if only Native language (for Opera)
+			throw new ExceptionLanguage();
+		}
+		else {
             for (var i = 1; i < voices.length; i++) {
-              Voices = Voices + "," + (voices[i].voiceName).split("Google")[1];              
+				Voices = Voices + "," + (voices[i].voiceName).split("Google")[1];              
             }
 			$("#listeLanguage").append("<i><small>"+Voices+"</small></i>");
-          });
-		  
+		}
+    });		  
+}
+catch(exception){ //To Firefox (and Opera in exeption function)
+				var listTTS = getListTTSlanguage();
+				Voices = "UK English Female"; //Delete Native and add first language
+				for (var i = 1; i < listTTS.length; i++) {
+					Voices = Voices + "," + listTTS[i].name;				
+				}
+				$("#listeLanguage").append("<i><small>"+Voices+"</small></i>");
+}		  
 //Init disabled checkboxif(document.getElementById('ListenChoiceTTS').checked) {
 
 console.log("MEMRISE run with MEMRISE+ extension. If you found a bug, want participate to extension\'s program  or to suggest an improvement, translation, go to https://github.com/Shmuel83/MemrisePlus ");
