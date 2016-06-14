@@ -254,7 +254,15 @@ function OnloadBadges() {
 
 chrome.runtime.onMessage.addListener(
 function(request, sender, sendResponse) {
-	localStorage.setItem("CourseThings",request.things);
+	if(request.things) {
+		 var parseRequest = JSON.parse(request.things);
+		 var course = parseInt(parseRequest.course);
+		 var things = parseRequest.things;
+		 for(i=0;i<things.length;i++) {
+			 setThing(course, parseInt(things[i]));
+			 console.log("add thing on DB");
+		 }
+	}
 
   });
 

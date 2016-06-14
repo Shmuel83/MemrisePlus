@@ -10,17 +10,24 @@
 // ==/UserScript==
 
 var is_CursiveHebrew = false;
+var nb_click = 0;
  //Get things of course
- $('.header-exit').click( function() {
+ /*$('.header-exit').click( function() {
 	 chrome.runtime.sendMessage({things: localStorage.getItem("sessionCourses")});
- });
+ });*/
 
 $(document).click(function(event) {
   var theId =  $(event.target).context.className;
+  //When user awnser at one test, change automaticaly cursive font, here for button
   if((theId=="next-icon")|(theId=="shiny-box choice clearfix incorrect")|(theId=="shiny-box choice clearfix correct")|(theId=="index")|(theId=="val")|(theId=="marking-icon cross")|(theId=="marking-icon tick")) {	//Event click Next button
-	  if(is_CursiveHebrew = true) { //Mode Cursive button automaticly
+	  if(is_CursiveHebrew = true) { //Mode Cursive button automaticaly if option=true
 		  $("#changeHebrew").html("<button style='padding:5px 10px 5px 10px; font-family:\"\"' OnClick='SquarreHebrew()'>א</button>");
 	  }
+	  //Set Message only one shoot
+	  if(nb_click==0) {
+		chrome.runtime.sendMessage({things: localStorage.getItem("sessionCourses")});
+	  }
+	  nb_click++;
   }
 });
 
@@ -29,10 +36,11 @@ var onLoad = function($) {
     if (!document.hasFocus()) MEMRISE.garden.pause();
   });
 
- //Get things of course session
-function getThings() {
 
-	var getStorage = localStorage.getItem("sessionCourses");
+};
+var getThings = function($) {
+	//Get things of course session
+function getThings() {
 	var getCourseId = MEMRISE.garden.getTrackedCourseId();
 	var getThings = MEMRISE.garden.things;
 	var setThings = new Array();
@@ -44,10 +52,10 @@ function getThings() {
 	}
 	CourseObj.course = parseInt(getCourseId);
 	CourseObj.things = setThings;
-	localStorage.setItem("sessionCourses",JSON.stringify(CourseObj));	
+	localStorage.setItem("sessionCourses",JSON.stringify(CourseObj));
 }
 getThings();	
-};
+}
 
 	
 
@@ -305,6 +313,7 @@ chrome.storage.sync.get({
 		if(items.Choice_ListenTTS) {
 			injectWithJQ(listTTSlanguage);
 		}
+		injectWithJQOnLoad(getThings);
   });
   console.log("try sync");
 }
