@@ -74,20 +74,32 @@ function openfullScreen_popup() {
 function open_about() {
 	chrome.tabs.create({url : 'about.html'});
 }
-//Inclure fichier langue si ce n'est pas de l'anglais
+//-------------Include translate file to chart Amchart, else if is english language-----------------//
 function include(file) {
     var oScript =  document.createElement("script");
     oScript.src = "amcharts/amcharts/lang/"+ file.replace(/<[^>]*>?/g, '') +".js";
     oScript.type = "text/javascript";
     document.body.appendChild(oScript);
 }
-chrome.storage.sync.get({
-	Choice_lang: "en"
-  }, function(items) {
+try {
+	chrome.storage.sync.get({
+		Choice_lang: "en"
+	}, function(objectStorage) {
+		callback_storage_popup(objectStorage);
+	});
+}
+catch(exception){
+	chrome.storage.local.get({
+		Choice_lang: "en"
+	}, function(objectStorage) {
+		callback_storage_popup(objectStorage);
+	});
+}
+function callback_storage_popup(items) {
 	// On l'utilise :
 	if(items.Choice_lang!="en") {
 		include((items.Choice_lang).replace(/<[^>]*>?/g, ''));
 	}
- }
-);
+}
+//---------To inform user if he read console------------------//
 console.log("MEMRISE run with MEMRISE+ extension. If you found a bug, want participate to extension\'s program  or to suggest an improvement, translation, go to https://github.com/Shmuel83/MemrisePlus ");

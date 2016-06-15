@@ -89,15 +89,27 @@ function ChartFancyLoad() {
 		chartFancy.validateData();
 	 }
  }
- chrome.storage.sync.get({
-	Choice_lang: "en"
-  }, function(items) {
-	// On l'utilise :
+//------Config language chart------------//
+try {	//To Chrome,Opera : sync
+	chrome.storage.sync.get({
+		Choice_lang: "en"
+	}, function(objectStorage) {
+		callback_storage_fancy(objectStorage);
+	});
+}
+catch(exception){	//To firefox : local
+	chrome.storage.local.get({
+		Choice_lang: "en"
+	}, function(objectStorage) {
+		callback_storage_fancy(objectStorage);
+	});
+ }
+function callback_storage_fancy(items) {
 		langStorage = items.Choice_lang;
     if ('en' == langStorage)
         chartFancy.language = null;
     else
         chartFancy.language = langStorage;
-    //chartFancy.validateData();
- }
-);
+    chartFancy.validateData();
+}
+ 

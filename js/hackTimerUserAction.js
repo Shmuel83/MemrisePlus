@@ -294,7 +294,23 @@ chrome.storage.sync.get({
 	Choice_manageChrono: false,
     Choice_PoliceHebrew: false,
 	Choice_ListenTTS: false
-  }, function(items) {
+  }, function(objectStorage) {
+		callback_storage_hackTimerUserAction(objectStorage);
+  });
+  console.log("try sync");
+}
+catch(exception){ //To firefox. sync not compatible
+	chrome.storage.local.get({
+	Choice_autoPause: true,
+	Choice_manageChrono: false,
+    Choice_PoliceHebrew: false,
+	Choice_ListenTTS: false
+  }, function(objectStorage) {
+		callback_storage_hackTimerUserAction(objectStorage);
+  });
+  console.log("catch !sync");
+}
+function callback_storage_hackTimerUserAction(items) {
 		if(items.Choice_autoPause) {
 			injectWithJQOnLoad(onLoad);
 		}
@@ -314,34 +330,4 @@ chrome.storage.sync.get({
 			injectWithJQ(listTTSlanguage);
 		}
 		injectWithJQOnLoad(getThings);
-  });
-  console.log("try sync");
-}
-catch(exception){ //To firefox. sync not compatible
-	chrome.storage.local.get({
-	Choice_autoPause: true,
-	Choice_manageChrono: false,
-    Choice_PoliceHebrew: false,
-	Choice_ListenTTS: false
-  }, function(items) {
-		if(items.Choice_autoPause) {
-			injectWithJQOnLoad(onLoad);
-		}
-		if(items.Choice_manageChrono) {
-            injectWithJQ(setCountdown);
-            injectWithJQ(setDelay);
-			injectWithJQ(UserAction);
-			injectWithJQ("ProgramTimer();");
-		}
-        if(items.Choice_PoliceHebrew) {
-            injectWithJQ(PoliceHebrewCursive);
-            injectWithJQ(PoliceHebrewSquarre);
-            InjectClassCursiveHebrew();
-			is_CursiveHebrew = true;
-        }
-		if(items.Choice_ListenTTS) {
-			injectWithJQ(listTTSlanguage);
-		}
-  });
-  console.log("catch !sync");
 }

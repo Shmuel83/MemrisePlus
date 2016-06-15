@@ -14,62 +14,106 @@ function save_options(e) {
 	localStorage.setItem('ListenChoiceTTS',get_Choice_ListenTTS);
 	localStorage.setItem('ListenChoiceHebrew',get_Choice_ListenHebrew);
 	
-  chrome.storage.sync.set({
-		Choice_autoPause: get_autoPause,
-		Choice_manageChrono: get_Configchrono,
-		Choice_openTab: get_openTab,
-		Choice_chat : get_chat,
-		Choice_fun: get_Rankoverlord,
-		Choice_open: get_open,
-		Choice_lang: get_lang,
-		Choice_PoliceHebrew: get_PoliceHebrew,
-		Choice_ListenTTS: get_Choice_ListenTTS,
-		Choice_ListenHebrew: get_Choice_ListenHebrew
-  }, function() {
-    // Update status to let user know options were saved.
-    var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
-	 setTimeout(function() {
-      status.textContent = '';
-    }, 750);
-    if (chrome.runtime.error) {
-      console.log("Runtime error.");
-	  status.textContent = 'Not save. Error '+chrome.runtime.lastError.message;
-    }
-  });
+	try {
+		chrome.storage.sync.set({
+			Choice_autoPause: get_autoPause,
+			Choice_manageChrono: get_Configchrono,
+			Choice_openTab: get_openTab,
+			Choice_chat : get_chat,
+			Choice_fun: get_Rankoverlord,
+			Choice_open: get_open,
+			Choice_lang: get_lang,
+			Choice_PoliceHebrew: get_PoliceHebrew,
+			Choice_ListenTTS: get_Choice_ListenTTS,
+			Choice_ListenHebrew: get_Choice_ListenHebrew
+		}, function() {
+				callback_storage_optionSave();
+		});
+	}
+	catch(exception){
+		chrome.storage.local.set({
+			Choice_autoPause: get_autoPause,
+			Choice_manageChrono: get_Configchrono,
+			Choice_openTab: get_openTab,
+			Choice_chat : get_chat,
+			Choice_fun: get_Rankoverlord,
+			Choice_open: get_open,
+			Choice_lang: get_lang,
+			Choice_PoliceHebrew: get_PoliceHebrew,
+			Choice_ListenTTS: get_Choice_ListenTTS,
+			Choice_ListenHebrew: get_Choice_ListenHebrew
+		}, function() {
+				callback_storage_optionSave();
+		});
+	}
+	function callback_storage_optionSave() {
+		// Update status to let user know options were saved.
+		var status = document.getElementById('status');
+		status.textContent = 'Options saved.';
+		setTimeout(function() {
+			status.textContent = '';
+		}, 750);
+		if (chrome.runtime.error) {
+			console.log("Runtime error.");
+			status.textContent = 'Not save. Error '+chrome.runtime.lastError.message;
+		}
+	}
+ 
 }
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
   // Use default variable
-  chrome.storage.sync.get({
-    Choice_autoPause: true,
-	Choice_manageChrono: false,
-	Choice_openTab: false,
-	Choice_fun: false,
-	Choice_open: "openOptionPopup",
-	Choice_lang:"en",
-	Choice_chat:true,
-	Choice_PoliceHebrew: false,
-	Choice_ListenTTS: false,
-	Choice_ListenHebrew: false
-  }, function(items) {
-    document.getElementById('autoPause').checked = items.Choice_autoPause;
-	document.getElementById('Configchrono').checked = items.Choice_manageChrono;
-	document.getElementById('openTab').checked = items.Choice_openTab;
-	document.getElementById('Chat').checked = items.Choice_chat;
-	document.getElementById('Rankoverlord').checked = items.Choice_fun;
-	$( '[value="'+ (items.Choice_open).replace(/<[^>]*>?/g, '') + '"]' ).prop( "checked", true );
-	$('#lang [value="'+ (items.Choice_lang).replace(/<[^>]*>?/g, '') +'"]').prop('selected', true)
-	document.getElementById('cursiveHebrew').checked = items.Choice_PoliceHebrew;
-	document.getElementById('ListenChoiceTTS').checked = items.Choice_ListenTTS;
-	document.getElementById('ListenChoiceHebrew').checked = items.Choice_ListenHebrew;
-	if(document.getElementById('ListenChoiceTTS').checked) {
-		document.getElementById('ListenChoiceHebrew').disabled = false;
-		document.getElementById('ListenHebrew').style.color = "";
+	try {
+		chrome.storage.sync.get({
+		Choice_autoPause: true,
+		Choice_manageChrono: false,
+		Choice_openTab: false,
+		Choice_fun: false,
+		Choice_open: "openOptionPopup",
+		Choice_lang:"en",
+		Choice_chat:true,
+		Choice_PoliceHebrew: false,
+		Choice_ListenTTS: false,
+		Choice_ListenHebrew: false
+		}, function(objectStorage) {
+			callback_storage_optionRestore(objectStorage);
+		});
 	}
-  });
+	catch(exception){
+		chrome.storage.local.get({
+		Choice_autoPause: true,
+		Choice_manageChrono: false,
+		Choice_openTab: false,
+		Choice_fun: false,
+		Choice_open: "openOptionPopup",
+		Choice_lang:"en",
+		Choice_chat:true,
+		Choice_PoliceHebrew: false,
+		Choice_ListenTTS: false,
+		Choice_ListenHebrew: false
+		}, function(objectStorage) {
+			callback_storage_optionRestore(objectStorage);
+		});
+	}
+	function callback_storage_optionRestore(items) {
+		document.getElementById('autoPause').checked = items.Choice_autoPause;
+		document.getElementById('Configchrono').checked = items.Choice_manageChrono;
+		document.getElementById('openTab').checked = items.Choice_openTab;
+		document.getElementById('Chat').checked = items.Choice_chat;
+		document.getElementById('Rankoverlord').checked = items.Choice_fun;
+		$( '[value="'+ (items.Choice_open).replace(/<[^>]*>?/g, '') + '"]' ).prop( "checked", true );
+		$('#lang [value="'+ (items.Choice_lang).replace(/<[^>]*>?/g, '') +'"]').prop('selected', true)
+		document.getElementById('cursiveHebrew').checked = items.Choice_PoliceHebrew;
+		document.getElementById('ListenChoiceTTS').checked = items.Choice_ListenTTS;
+		document.getElementById('ListenChoiceHebrew').checked = items.Choice_ListenHebrew;
+		if(document.getElementById('ListenChoiceTTS').checked) {
+			document.getElementById('ListenChoiceHebrew').disabled = false;
+			document.getElementById('ListenHebrew').style.color = "";
+		}
+	}
+  
 }
 document.addEventListener('DOMContentLoaded', restore_options);
 $("input").click(function(e){

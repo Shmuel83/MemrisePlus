@@ -85,15 +85,27 @@ function UpdateLineChart() {
 		chart.validateData();
 	}
 }
-chrome.storage.sync.get({
+//------Config language chart------------//
+try {	//To Chrome,Opera : sync
+	chrome.storage.sync.get({
 	Choice_lang: "en"
-  }, function(items) {
-	// On l'utilise :
-		langStorage = items.Choice_lang;
+	}, function(objectStorage) {
+		callback_storage_chart(objectStorage);
+	});
+}
+catch(exception){	//To firefox : local
+	chrome.storage.local.get({
+	Choice_lang: "en"
+	}, function(objectStorage) {
+		callback_storage_chart(objectStorage);
+	});
+}
+function callback_storage_chart(items) {
+	langStorage = items.Choice_lang;
     if ('en' == langStorage)
         chart.language = null;
     else
         chart.language = langStorage;
     chart.validateData();
- }
-);
+}
+
