@@ -40,3 +40,6 @@
     transition: 1s ease-in;
 	transform:rotate(360deg);
 }
+.flex-courses select {
+	width:20%;
+}

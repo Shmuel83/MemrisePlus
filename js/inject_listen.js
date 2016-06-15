@@ -1,4 +1,4 @@
-$("#left-area").append("<div><div id='Listening'><audio hidden id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'></audio><span id='ListenToSpeech'></span></div><select hidden id='ChoiceLang'></select></div>"); //Add button
+$("#left-area").append("<div><div id='Listening'><audio hidden id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'><source id='srcTTS' src='' type='audio/mpeg'></audio><span id='ListenToSpeech'></span></div><select hidden id='ChoiceLang'></select></div>"); //Add button
 	//Get select text to translate 
 var port = chrome.runtime.connect({name: "listening"});
 var textSelected="";
@@ -39,10 +39,11 @@ port.onMessage.addListener(function(msg) {
 function createAudioPlayer(audioLink) {
 			
 			var audio = document.getElementById('audioHebrew');
+			var source = document.getElementById('srcTTS');
 			document.getElementById('audioHebrew').hidden = "";
-			audio.setAttribute("src", audioLink);
+			source.setAttribute("src", audioLink);
 			audio.load();
-			audio.play();
+			//audio.play();
 			$("#ListenToSpeech").text(textSelected);
 
 }
@@ -59,7 +60,7 @@ function AddOptionLanguage(tabLanguages) {
 		if(selectedLanguage == tabLanguages[i]) {
 			flagSelected = "selected";	//:selected last choice for that each exercice, user don't show native if is choose Google French by exemple
 			if(selectedLanguage=="Hebrew") {
-				$("#Listening").html("<audio id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'></audio><span id='ListenToSpeech'></span>");
+				$("#Listening").html("<audio id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'><source id='srcTTS' src='' type='audio/mpeg'></audio><span id='ListenToSpeech'></span>");
 			}
 		}
         $("#ChoiceLang").append("<option value='"+tabLanguages[i]+"' "+flagSelected+">"+tabLanguages[i]+"</option>");	//Add language on select
@@ -73,6 +74,6 @@ $("select").change(function(){
 		$("#Listening").html("");
 	}
 	else {
-		$("#Listening").html("<audio id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'></audio><span id='ListenToSpeech'></span>");
+		$("#Listening").html("<audio id='audioHebrew' controls title='To listen, selected with your mouse an hebrew word or sentence(s), then you will can play !'><source id='srcTTS' src='' type='audio/mpeg'></audio><span id='ListenToSpeech'></span>");
 	}
 });

@@ -12,7 +12,7 @@ for(var icourse=0; icourse<courses.length; icourse++) {
 	/*if(parseInt(things.course)==idCourse) {
 		textThings = things.things;
 	}*/
-	getThings(idCourse);
+	getThings(idCourse,callback_getThings);
 	$('#divCourses').append("<div id='header' class='flex-courses'>"+ nameCourse +" "+chrome.i18n.getMessage('CourseDo')+" :<div id='g_"+ idCourse +"' class='gauge'></div><select id='difficultWords_"+idCourse+"'><option>difficults words</option></select></div>");
 
 

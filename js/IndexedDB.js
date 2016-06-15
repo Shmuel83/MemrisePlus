@@ -3,7 +3,7 @@
 //	setThing(int course, int thing, string difficult, string word_a, string word_b)
 //	deleteThing(int thing)
 //	getThings(int course)
-//	getDifficulties(void)
+//	getDifficulties(callback)
 const DB_NAME = "bdd-Memrise-Add";
 const DB_VERSION = 1; // Use a long long for this value (don't use a float)
 const DB_STORE_NAME = "Things";
@@ -55,7 +55,11 @@ baseMemrise.onupgradeneeded = function (event) {
 baseMemrise.onsuccess = function() {
 	
 	console.log("openDB DONE");
+	callback_openDB();
 
+}
+function callback_openDB() { //Update BDD (get all things and delete thing not difficult or modify thing information)
+	getCourses();
 }
 //---------Put thing------------------------------------------------------------//
 //Resume : If thing exist, used putThing with its Id
@@ -123,7 +127,7 @@ function addThing(_course,_thing,_difficult,_worda,_wordb) {
 }
 //------------Get thing-------------------------------------------------------//
 //Resume : Research if thing existing on DB (calles by setThing, deleteThing)
-//Function getThing(int thing)
+//Function getThing(int thing, callback)
 //Input : int thing (Id of thing)
 //		  function callback_getThing
 //		  object Tab to return with callback. Need to function callback, not here
@@ -205,9 +209,7 @@ function callback_setThing(is_existThing,tabObject) {
 function deleteThing(_thing) {
 
 	getThing(_thing,callback_deleteThing);
-	if(is_existThing != false) {
-		var deleteThing = transaction.objectStore(DB_STORE_NAME).delete( is_existThing );
-	}
+
 }
 //Response og getThing after called by deleteThing
 //Need callback function because IndexedBD run asynchrone mode
@@ -231,13 +233,14 @@ function callback_deleteThing(is_existThing,tabObject) {
 }
 //------------Get Id-------------------------------------------------------//
 //Resume : Research Things of course
-//Function getThings(int course)
+//Function getId(int course, int key of DB, callback)
 //Input : int course (Id of course)
 //Output : int id (Id of DB) false if don't exist
-function getId(id_key_range,db_key) {
+function getId(id_key_range,db_key,callbackMe) {
 	var baseActive = baseMemrise.result;
 	var transactionLecture = baseActive.transaction(DB_STORE_NAME, 'readonly');
-	var tabThings = new Array();
+	var tabWordsThings = new Array();
+	var tabIdThings = new Array();
 	var i_boucle = 0;
   var index = transactionLecture.objectStore(DB_STORE_NAME).index(db_key);
   var keyRangeValue = IDBKeyRange.only(id_key_range); //Research only course for cursor
@@ -254,17 +257,18 @@ function getId(id_key_range,db_key) {
     var cursor = event.target.result;
 	
 	if(cursor) { //Thing exist. Infinity result possible
-		console.log("get things openDB : "+cursor.value.id);
+		console.log("get things openDB : "+cursor.value.course+":"+cursor.value.id);
 		if((cursor.value.word_a)&&(cursor.value.word_b)) {
-			tabThings[i_boucle] = cursor.value.word_a +" : "+ cursor.value.word_b;
-			i_boucle++;
+			tabWordsThings[i_boucle] = cursor.value.word_a +" : "+ cursor.value.word_b;
 		}
+		tabIdThings[i_boucle] = cursor.value.thing;
+		i_boucle++;
 		cursor.continue();
 	}
 	else { //If thing not exist
-		console.log("get things openDB : all things get");
+		console.log("get things openDB : all things get ");
 		if(db_key==DB_KEY_COURSE) {
-			callback_getThings(id_key_range,tabThings);
+			callbackMe(id_key_range,tabWordsThings,tabIdThings);
 		}
 	}
 
@@ -279,14 +283,13 @@ function getId(id_key_range,db_key) {
 }
 //------------Get things-------------------------------------------------------//
 //Resume : Research Things of course
-//Function getThings(int course)
+//Function getThings(int course, callback)
 //Input : int course (Id of course)
 //Output : int id (Id of DB) false if don't exist
-function getThings(_course) {
-	getId(_course,DB_KEY_COURSE);
+function getThings(_course,callbackUser) {
+	getId(_course,DB_KEY_COURSE,callbackUser);
 }
-function callback_getThings(_course,tabObject) {
-	//OnloadCourseDetail(_course,tabObject);
+function callback_getThings(_course,tabObject,tabId) {
 	var optionHTML = "";
 	for(i=0;i<tabObject.length;i++) {
 		if(tabObject[i] || false) {
@@ -297,9 +300,51 @@ function callback_getThings(_course,tabObject) {
 }
 //------------Get things-------------------------------------------------------//
 //Resume : Research Things of course
-//Function getDifficulties(int course)
+//Function getDifficulties(callback)
 //Input : int course (Id of course)
 //Output : int id (Id of DB) false if don't exist
-function getDifficulties() {
-	getId("True",DB_KEY_DIFFICULT);	
+function getDifficulties(callbackUser) {
+	getId("True",DB_KEY_DIFFICULT,callbackUser);	
+}
+//------------Get courses-------------------------------------------------------//
+//Resume : Research all courses
+//Function getCourses(void)
+//Input : \
+//Output : callback_getCourses
+function getCourses() {
+	var baseActive = baseMemrise.result;
+	var transactionLecture = baseActive.transaction(DB_STORE_NAME, 'readonly');
+	var tabThings = new Array();
+	var i_boucle = 0;
+  var index = transactionLecture.objectStore(DB_STORE_NAME).index(DB_KEY_COURSE);
+
+
+  var lecture = index.openCursor(IDBKeyRange.lowerBound(0),'nextunique'); //Search courses disctinct
+
+  // On attend bien évidemment la récupération des données de manière asynchrone
+
+  lecture.onsuccess = function(event) {
+ 
+    // Et nous récupérons notre valeur
+
+    var cursor = event.target.result;
+	
+	if(cursor) { //Thing exist. Infinity result possible
+		console.log("get courses openDB : "+cursor.value.course);
+		getThings(cursor.value.course,callback_getThings_API);
+		cursor.continue();
+	}
+	else { //If thing not exist
+		console.log("get course openDB : all courses get");
+	}
+
+  };
+  
+  lecture.onerror = function (evt) {
+      console.error("openDb:", evt.target.errorCode);
+	  return false;
+   };	
+}
+function callback_getThings_API(_course,_tabObject,_tabIdT) {
+	OnloadCourseDetail(_course,JSON.stringify(_tabIdT));
 }

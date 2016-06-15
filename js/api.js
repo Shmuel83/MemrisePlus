@@ -21,10 +21,24 @@ var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter
 //Recherche détail d'un cours
 function OnloadCourseDetail(courseId,ArrayThingsId) {
 var url_courseDetail = "http://www.memrise.com/api/thing/stats/?course_id=" + courseId +"&thing_ids="+ArrayThingsId;
-        $.getJSON(url_courseDetail, function (data) {
-            localStorage.setItem("courseDetail",(JSON.stringify(data)).replace(/<[^>]*>?/g, ''));
-        })
- .done(function() {
+console.log(url_courseDetail);
+        $.getJSON(url_courseDetail)
+ .done(function(parserThings) {
+	for(i=0;i<parserThings.things.length;i++) {
+		var parse_course = parseInt(parserThings.things[i].course_id);
+		var parse_thing = parseInt(parserThings.things[i].thing_id);
+		var parse_difficult = (parserThings.things[i].is_difficult);
+		var parse_worda = (parserThings.things[i].col_a).replace(/<[^>]*>?/g, '');
+		var parse_wordb = (parserThings.things[i].col_b).replace(/<[^>]*>?/g, '');
+		console.log(parse_course+","+ parse_thing+","+ parse_difficult+","+ parse_worda+","+ parse_wordb);
+		if(!parse_difficult) {	
+			deleteThing(parse_thing);
+		}
+		else { //is_difficult
+			setThing(parse_course, parse_thing, parse_difficult, parse_worda, parse_wordb);
+		}
+		
+	}
 	return "success";
   })
   .fail(function() {
