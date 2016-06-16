@@ -260,7 +260,6 @@ function(request, sender, sendResponse) {
 		 var things = parseRequest.things;
 		 for(i=0;i<things.length;i++) {
 			 setThing(course, parseInt(things[i]));
-			 console.log("add thing on DB");
 		 }
 	}
 

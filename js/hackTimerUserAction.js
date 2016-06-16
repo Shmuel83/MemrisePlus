@@ -19,16 +19,30 @@ var nb_click = 0;
 $(document).click(function(event) {
   var theId =  $(event.target).context.className;
   //When user awnser at one test, change automaticaly cursive font, here for button
-  if((theId=="next-icon")|(theId=="shiny-box choice clearfix incorrect")|(theId=="shiny-box choice clearfix correct")|(theId=="index")|(theId=="val")|(theId=="marking-icon cross")|(theId=="marking-icon tick")) {	//Event click Next button
+  if((theId=="next-icon")|(theId=="shiny-box choice clearfix incorrect")|(theId=="shiny-box choice clearfix correct")|(theId=="index")|(theId=="val ")|(theId=="marking-icon cross")|(theId=="marking-icon tick")|(theId=="next-button btn btn-inverse clearfix active")) {	//Event click Next button
 	  if(is_CursiveHebrew = true) { //Mode Cursive button automaticaly if option=true
 		  $("#changeHebrew").html("<button style='padding:5px 10px 5px 10px; font-family:\"\"' OnClick='SquarreHebrew()'>א</button>");
 	  }
 	  //Set Message only one shoot
 	  if(nb_click==0) {
+		injectWithJQ("_getThings();");
 		chrome.runtime.sendMessage({things: localStorage.getItem("sessionCourses")});
 	  }
 	  nb_click++;
   }
+  else {
+	  //console.log("click out : "+theId);
+  }
+});
+$(document).keypress(function(e) {
+	//console.log("keypress : "+e.which);
+    if(e.which == 13) {
+		//console.log("keypress");
+        if(nb_click==0) {
+			chrome.runtime.sendMessage({things: localStorage.getItem("sessionCourses")});
+		}
+		nb_click++;
+    }
 });
 
 var onLoad = function($) {
@@ -38,9 +52,8 @@ var onLoad = function($) {
 
 
 };
-var getThings = function($) {
+var getThings = function _getThings() {
 	//Get things of course session
-function getThings() {
 	var getCourseId = MEMRISE.garden.getTrackedCourseId();
 	var getThings = MEMRISE.garden.things;
 	var setThings = new Array();
@@ -53,8 +66,7 @@ function getThings() {
 	CourseObj.course = parseInt(getCourseId);
 	CourseObj.things = setThings;
 	localStorage.setItem("sessionCourses",JSON.stringify(CourseObj));
-}
-getThings();	
+	return 	CourseObj;
 }
 
 	
@@ -297,7 +309,6 @@ chrome.storage.sync.get({
   }, function(objectStorage) {
 		callback_storage_hackTimerUserAction(objectStorage);
   });
-  console.log("try sync");
 }
 catch(exception){ //To firefox. sync not compatible
 	chrome.storage.local.get({
@@ -308,7 +319,6 @@ catch(exception){ //To firefox. sync not compatible
   }, function(objectStorage) {
 		callback_storage_hackTimerUserAction(objectStorage);
   });
-  console.log("catch !sync");
 }
 function callback_storage_hackTimerUserAction(items) {
 		if(items.Choice_autoPause) {
@@ -329,5 +339,5 @@ function callback_storage_hackTimerUserAction(items) {
 		if(items.Choice_ListenTTS) {
 			injectWithJQ(listTTSlanguage);
 		}
-		injectWithJQOnLoad(getThings);
+		injectWithJQ(getThings);
 }

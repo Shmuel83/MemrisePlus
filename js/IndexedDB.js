@@ -20,7 +20,7 @@ baseMemrise.onupgradeneeded = function (event) {
   // Nous récupérons l'instance de notre base de données
 
   var db = event.target.result;
-  console.log("Create DB");
+  //console.log("Create DB");
   //First creation
   var objectStore = db.createObjectStore(DB_STORE_NAME, { keyPath: DB_KEY_ID, autoIncrement: true });  
   objectStore.createIndex(DB_KEY_COURSE, DB_KEY_COURSE, { unique: false });
@@ -54,7 +54,7 @@ baseMemrise.onupgradeneeded = function (event) {
 };
 baseMemrise.onsuccess = function() {
 	
-	console.log("openDB DONE");
+	//console.log("openDB DONE");
 	callback_openDB();
 
 }
@@ -89,7 +89,7 @@ function putThing(_id,_course,_thing,_difficult,_worda,_wordb) {
 
     // Notre valeur a bien été insérée
     // Elle aura en plus une propriété id automatiquement ajoutée
-	console.log("Put thing openDB");
+	//console.log("Put thing openDB");
 
   };
   
@@ -120,7 +120,7 @@ function addThing(_course,_thing,_difficult,_worda,_wordb) {
 
     // Notre valeur a bien été insérée
     // Elle aura en plus une propriété id automatiquement ajoutée
-	console.log("Add thing openDB");
+	//console.log("Add thing openDB");
 
   };
   
@@ -153,11 +153,11 @@ function getThing(_thing,callback_getThing,tabObject) {
 
     var notreValeur = event.target.result || false;
 	if(notreValeur) { //Thing exist. Only 1 result possible
-		console.log("get thing openDB : "+notreValeur.id);
+		//console.log("get thing openDB : "+notreValeur.id);
 		callback_getThing(notreValeur.id,tabObject);
 	}
 	else { //If thing not exist
-		console.log("get thing openDB : no thing existed "+notreValeur);
+		//console.log("get thing openDB : no thing existed "+notreValeur);
 		callback_getThing(false,tabObject);
 	}
 
@@ -184,7 +184,7 @@ function setThing(_course,_thing,_difficult,_worda,_wordb) {
 //Response og getThing after called by setThing
 //Need callback function because IndexedBD run asynchrone mode
 function callback_setThing(is_existThing,tabObject) {
-	console.log("callback_setThing "+is_existThing);
+	//console.log("callback_setThing "+is_existThing);
 	_course = tabObject[0];
 	_thing = tabObject[1];
 	_difficult = tabObject[2];
@@ -194,7 +194,7 @@ function callback_setThing(is_existThing,tabObject) {
 		addThing(_course,_thing,_difficult,_worda,_wordb);
 	}
 	else {
-		console.log("is_existThing "+is_existThing)
+		//console.log("is_existThing "+is_existThing)
 		putThing(is_existThing,_course,_thing,_difficult,_worda,_wordb);
 	}
 }
@@ -216,7 +216,7 @@ function deleteThing(_thing) {
 function callback_deleteThing(is_existThing,tabObject) {
 	var baseActive = baseMemrise.result;
 	var transaction = baseActive.transaction(DB_STORE_NAME, 'readwrite');
-	console.log("callback_deleteThing "+is_existThing);
+	//console.log("callback_deleteThing "+is_existThing);
 	if(is_existThing != false) {
 		var deleteThing = transaction.objectStore(DB_STORE_NAME).delete( is_existThing );
 	
@@ -226,7 +226,7 @@ function callback_deleteThing(is_existThing,tabObject) {
 
 		// Notre valeur a bien été insérée
 		// Elle aura en plus une propriété id automatiquement ajoutée
-		console.log("Delete thing openDB");
+		//console.log("Delete thing openDB");
 	
 		};
 	}
@@ -257,8 +257,8 @@ function getId(id_key_range,db_key,callbackMe) {
     var cursor = event.target.result;
 	
 	if(cursor) { //Thing exist. Infinity result possible
-		console.log("get things openDB : "+cursor.value.course+":"+cursor.value.id);
-		if((cursor.value.word_a)&&(cursor.value.word_b)) {
+		//console.log("get things openDB : "+cursor.value.course+":"+cursor.value.id);
+		if((cursor.value.word_a) && (cursor.value.word_b) && cursor.value.difficult) {
 			tabWordsThings[i_boucle] = cursor.value.word_a +" : "+ cursor.value.word_b;
 		}
 		tabIdThings[i_boucle] = cursor.value.thing;
@@ -266,7 +266,7 @@ function getId(id_key_range,db_key,callbackMe) {
 		cursor.continue();
 	}
 	else { //If thing not exist
-		console.log("get things openDB : all things get ");
+		//console.log("get things openDB : all things get ");
 		if(db_key==DB_KEY_COURSE) {
 			callbackMe(id_key_range,tabWordsThings,tabIdThings);
 		}
@@ -330,12 +330,12 @@ function getCourses() {
     var cursor = event.target.result;
 	
 	if(cursor) { //Thing exist. Infinity result possible
-		console.log("get courses openDB : "+cursor.value.course);
+		//console.log("get courses openDB : "+cursor.value.course);
 		getThings(cursor.value.course,callback_getThings_API);
 		cursor.continue();
 	}
 	else { //If thing not exist
-		console.log("get course openDB : all courses get");
+		//console.log("get course openDB : all courses get");
 	}
 
   };

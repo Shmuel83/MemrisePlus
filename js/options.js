@@ -214,12 +214,16 @@ function getListTTSlanguage() {
 var Voices = "Native"; //To TTS Google
 //Exeption to Opera Chrome.TTS exist, but only native language
 function ExceptionLanguage() {
-	var listTTS = getListTTSlanguage();
+	/*var listTTS = getListTTSlanguage();
 	Voices = "UK English Female"; //Delete Native and add first language
 	for (var i = 1; i < listTTS.length; i++) {
 		Voices = Voices + "," + listTTS[i].name;				
 	}
-	$("#listeLanguage").append("<i><small>"+Voices+"</small></i>");
+	$("#listeLanguage").append("<i><small>"+Voices+"</small></i>");*/
+	$("#listeLanguage").append("<b><small>Not available on Opera for now</small></b>"); //TODO fix for OPERA
+	document.getElementById('ListenChoiceTTS').checked = false;
+	document.getElementById('ListenChoiceTTS').disabled = "disabled";
+	document.getElementById('ListenTTS').style.color = "#dddddd";
 }
 
 try { //To Chrome

@@ -129,5 +129,8 @@
 	"description": "Options Listen Hebrew"},
 "ListenTTS": {
 	"message": "Text-To-Speech : To listen text, choose language in exercice and highlight with your mouse a word or sentence(s). To hear the text , it's spoken immediately. Languages supported : ",
-	"description": "Options Listen TTS"}
+	"description": "Options Listen TTS"},
+"SelectionWordDifficult": {
+	"message": "difficult words",
+	"description": "Courses tab : On select, show words difficult"}
 }
