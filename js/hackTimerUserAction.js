@@ -290,7 +290,7 @@ var injectWithJQ = function(f) {
 var styleNode           = document.createElement ("style");
 styleNode.type          = "text/css";
 styleNode.textContent   = "@font-face { font-family: 'CursiveHebrew'; src: url('"
-                        + chrome.extension.getURL ("DorianCLM-BookItalic.TTF")
+                        + chrome.extension.getURL ("DorianCLM-BookItalic.ttf")
                         + "') format('truetype'); }"
                         ;
 document.head.appendChild (styleNode);
