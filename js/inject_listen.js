@@ -38,13 +38,13 @@ port.onMessage.addListener(function(msg) {
 });
 function createAudioPlayer(audioLink) {
 			
-			/*var audio = document.getElementById('audioHebrew');
+			var audio = document.getElementById('audioHebrew');
 			var source = document.getElementById('srcTTS');
 			document.getElementById('audioHebrew').hidden = "";
 			source.setAttribute("src", audioLink);
 			audio.load();
-			$("#ListenToSpeech").text(textSelected);*/
-			$("#Listening").html("<audio controls src='"+audioLink+"' type='audio/mp3'></audio><span id='ListenToSpeech'>"+textSelected+"</span>");
+			audio.play();
+			$("#ListenToSpeech").text(textSelected);
 
 }
 //--------------------Show languages TTS and selected last choice--------------------------------------//
