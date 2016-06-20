@@ -18,5 +18,5 @@ When you are on memrise.com, a script is injected on memrise with the file "js/i
 
 Link store for :
 * [Chome](https://chrome.google.com/webstore/detail/memrise%2B/hmpiegnknhdokbhnifbpgbbfkeddbdfh)
-* [Opera](addons.opera.com/fr/extensions/details/memrise/) : Same code
+* [Opera](https://addons.opera.com/fr/extensions/details/memrise/) : Same code
 * Firefox : Step moderation : Same code except manifest.json
