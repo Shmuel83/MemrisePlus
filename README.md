@@ -20,3 +20,6 @@ Link store for :
 * [Chome](https://chrome.google.com/webstore/detail/memrise%2B/hmpiegnknhdokbhnifbpgbbfkeddbdfh)
 * [Opera](https://addons.opera.com/fr/extensions/details/memrise/) : Same code
 * Firefox : Step moderation : Same code except manifest.json
+
+![Chart points by day](https://lh3.googleusercontent.com/LfPNZILAHbZALWeIrCUj8aXCONg2sGEIQ1-UUId_P-edhXCo04siuQs7w4vLv03-9FaWOLbgqyI=s640-h400-e365-rw)
+![Chart points by hour](https://lh3.googleusercontent.com/vlOO4KR9isxVR8x3tijhk-xsxmAjruR7e2sP6_BUyu5Ci6D5sbCMacrzrJkQg4AIE1QIxbz3Zw=s640-h400-e365-rw)
