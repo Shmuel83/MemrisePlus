@@ -1,6 +1,16 @@
 function checkSession() {
-	//Récupération Username (variable JSON : MEMRISE)	
-	chrome.tabs.executeScript(null,{code:"if(localStorage.getItem('username')){var myUser=(localStorage['username']); myUser }"}, function(UserAwser) {if(UserAwser) {localStorage.setItem("username",UserAwser)} });
+	//Récupération Username (variable JSON : MEMRISE)
+chrome.tabs.query(
+		{
+			url:"http://www.memrise.com/*" //Recherche de l'onglet memrise
+		}, 
+		function(result) {
+			if(result.length) {
+				chrome.tabs.executeScript(result[0].id,{code:"if(localStorage.getItem('username')){var myUser=(localStorage['username']); myUser }"}, function(UserAwser) {if(UserAwser) {localStorage.setItem("username",UserAwser)} });
+
+			}
+		});
+		
 }
 //Système d'onglet dans le popup
 $(function() { //Attendre que la page finisse de se charger avant d'effectuer les scripts
