@@ -132,5 +132,8 @@
 	"description": "Options Listen TTS"},
 "SelectionWordDifficult": {
 	"message": "mots difficiles",
-	"description": "Courses tab : On select, show words difficult"}
+	"description": "Courses tab : On select, show words difficult"},
+"HelpMe": {
+	"message": "Si vous avez besoin d'aide lorsque vous devez écrire la traduction sur l'entrée, vous pouvez cliquer sur le bouton nouveau ('Help me'), et une lettre est ajoutée",
+	"description": "Option tab : Help on input test for add a letter and more"}
 }

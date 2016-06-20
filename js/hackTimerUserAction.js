@@ -216,6 +216,101 @@ $('#delayToggle').click(function() {
   setDelay(delayEnabled);
 });
 }
+var HelpMe = function($) {
+	$("#timerControls").append("<div id='HelpMe'><button id='idHelpButton' style='padding:5px 10px 5px 10px; float;' OnClick='getLetter()'>HelpMe</button></div>"); //Add button
+}	
+
+var getLetter = function getLetter() {
+	var getQuestion = function()
+	{
+		return $('.qquestion')[0].childNodes[0].nodeValue.trim();
+	};
+
+	var things, thingsUsers;
+
+	var getThings = function()
+	{
+		things = MEMRISE.garden.things;
+		thingsUsers = MEMRISE.garden.thingusers._list;
+	};
+
+	var getThingUser = function(id)
+	{
+		return thingsUsers.filter(function(e)
+		{
+			return e.thing_id === id;
+		})[0];
+	};
+
+	var getThingByQuestion = function(question)
+	{
+		getThings();
+
+		for(var id in things)
+		{
+			var thing = things[id];
+			var thingUser = getThingUser(thing.id);
+
+			if(thingUser)
+			{
+				var thisQuestion = thing.columns[thingUser.column_b].val;
+				var thisAnswer   = thing.columns[thingUser.column_a].val;
+
+				if($.trim(question) === $.trim(thisQuestion))
+				{
+					return {
+						answer: thisAnswer,
+						question: thisQuestion
+					};
+				} else if($.trim(question) === $.trim(thisAnswer)) {
+					return {
+						answer: thisQuestion,
+						question: thisAnswer
+					};
+				}
+			}
+		}
+	};
+	if($('.qquestion').length)
+		{
+			var question = getThingByQuestion(getQuestion());
+
+			if($('.typing-type-here').length) {
+				var TabAnswer = question.answer.split('');
+				var nbInput = $('.typing-type-here').val().length;
+				var TabInput = $('.typing-type-here').val().split('');
+				var valInput = TabAnswer[0];
+				for(i=0;i<nbInput;i++) {
+					if(TabInput[i]!=TabAnswer[i]) {
+						$('.typing-type-here').val(valInput);
+						break;
+					}
+					if(TabAnswer.length> (i+1)) {
+						valInput = valInput + TabAnswer[i+1];
+					}
+				}
+				
+				$('.typing-type-here').val(valInput);
+				
+			} else {
+				var statusHelp = document.getElementById("idHelpButton");
+				console.log(statusHelp);
+				statusHelp.textContent = 'You don\'t need help here';
+				setTimeout(function() {
+					statusHelp.textContent = 'Help Me';
+				}, 2000);
+			}
+
+			return;
+		}
+		else {
+			var statusHelp = document.getElementById("idHelpButton");
+				statusHelp.textContent = 'You don\'t need help here';
+				setTimeout(function() {
+					statusHelp.textContent = 'Help Me';
+				}, 2000);
+		}
+}
 
 var listTTSlanguage = function getListTTSlanguage() {
 	
@@ -305,7 +400,8 @@ chrome.storage.sync.get({
 	Choice_autoPause: true,
 	Choice_manageChrono: false,
     Choice_PoliceHebrew: false,
-	Choice_ListenTTS: false
+	Choice_ListenTTS: false,
+	Choice_Help: false
   }, function(objectStorage) {
 		callback_storage_hackTimerUserAction(objectStorage);
   });
@@ -315,7 +411,8 @@ catch(exception){ //To firefox. sync not compatible
 	Choice_autoPause: true,
 	Choice_manageChrono: false,
     Choice_PoliceHebrew: false,
-	Choice_ListenTTS: false
+	Choice_ListenTTS: false,
+	Choice_Help: false
   }, function(objectStorage) {
 		callback_storage_hackTimerUserAction(objectStorage);
   });
@@ -338,6 +435,10 @@ function callback_storage_hackTimerUserAction(items) {
         }
 		if(items.Choice_ListenTTS) {
 			injectWithJQ(listTTSlanguage);
+		}
+		if(items.Choice_Help) {
+			injectWithJQOnLoad(HelpMe);
+			injectWithJQ(getLetter);
 		}
 		injectWithJQ(getThings);
 }

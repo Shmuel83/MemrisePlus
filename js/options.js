@@ -10,6 +10,7 @@ function save_options(e) {
 	var get_PoliceHebrew = document.getElementById('cursiveHebrew').checked;
 	var get_Choice_ListenTTS = document.getElementById('ListenChoiceTTS').checked;
 	var get_Choice_ListenHebrew = document.getElementById('ListenChoiceHebrew').checked;
+	var get_Choice_HelpMe = document.getElementById('HelpMe').checked;
 	
 	localStorage.setItem('ListenChoiceTTS',get_Choice_ListenTTS);
 	localStorage.setItem('ListenChoiceHebrew',get_Choice_ListenHebrew);
@@ -25,7 +26,8 @@ function save_options(e) {
 			Choice_lang: get_lang,
 			Choice_PoliceHebrew: get_PoliceHebrew,
 			Choice_ListenTTS: get_Choice_ListenTTS,
-			Choice_ListenHebrew: get_Choice_ListenHebrew
+			Choice_ListenHebrew: get_Choice_ListenHebrew,
+			Choice_Help : get_Choice_HelpMe
 		}, function() {
 				callback_storage_optionSave();
 		});
@@ -41,7 +43,8 @@ function save_options(e) {
 			Choice_lang: get_lang,
 			Choice_PoliceHebrew: get_PoliceHebrew,
 			Choice_ListenTTS: get_Choice_ListenTTS,
-			Choice_ListenHebrew: get_Choice_ListenHebrew
+			Choice_ListenHebrew: get_Choice_ListenHebrew,
+			Choice_Help : get_Choice_HelpMe
 		}, function() {
 				callback_storage_optionSave();
 		});
@@ -76,7 +79,8 @@ function restore_options() {
 		Choice_chat:true,
 		Choice_PoliceHebrew: false,
 		Choice_ListenTTS: false,
-		Choice_ListenHebrew: false
+		Choice_ListenHebrew: false,
+		Choice_Help : false
 		}, function(objectStorage) {
 			callback_storage_optionRestore(objectStorage);
 		});
@@ -92,7 +96,8 @@ function restore_options() {
 		Choice_chat:true,
 		Choice_PoliceHebrew: false,
 		Choice_ListenTTS: false,
-		Choice_ListenHebrew: false
+		Choice_ListenHebrew: false,
+		Choice_Help : false
 		}, function(objectStorage) {
 			callback_storage_optionRestore(objectStorage);
 		});
@@ -103,6 +108,7 @@ function restore_options() {
 		document.getElementById('openTab').checked = items.Choice_openTab;
 		document.getElementById('Chat').checked = items.Choice_chat;
 		document.getElementById('Rankoverlord').checked = items.Choice_fun;
+		document.getElementById('HelpMe').checked = items.Choice_Help;
 		$( '[value="'+ (items.Choice_open).replace(/<[^>]*>?/g, '') + '"]' ).prop( "checked", true );
 		$('#lang [value="'+ (items.Choice_lang).replace(/<[^>]*>?/g, '') +'"]').prop('selected', true)
 		document.getElementById('cursiveHebrew').checked = items.Choice_PoliceHebrew;
@@ -152,6 +158,7 @@ $("#info").text(chrome.i18n.getMessage('info'));
 $("#_Chat").text(chrome.i18n.getMessage('chat'));
 $("#ListenHebrew").text(chrome.i18n.getMessage('ListenHebrew'));
 $("#ListenTTS").text(chrome.i18n.getMessage('ListenTTS'));
+$("#_HelpMe").text(chrome.i18n.getMessage('HelpMe'));
 
 //Get extension version. Write into footbar
 $("#version").text("version "+(chrome.runtime.getManifest().version+ " "));
