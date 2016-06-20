@@ -51,10 +51,10 @@ baseMemrise.onupgradeneeded = function (event) {
 
       break;
   }
+
 };
 baseMemrise.onsuccess = function() {
 	
-	//console.log("openDB DONE");
 	callback_openDB();
 
 }
@@ -92,6 +92,10 @@ function putThing(_id,_course,_thing,_difficult,_worda,_wordb) {
 	//console.log("Put thing openDB");
 
   };
+  baseActive.onerror = function (evt) {
+      console.error("openDb:", evt.target.errorCode);
+   };
+  
   
 }
 //---------add thing------------------------------------------------------------//
