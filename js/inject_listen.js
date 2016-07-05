@@ -3,9 +3,10 @@ $("#left-area").append("<div><div id='Listening'><audio hidden id='audioHebrew' 
 var port = chrome.runtime.connect({name: "listening"});
 var textSelected="";
 //event when user up whith your mouclick
- $(document).mouseup(function(e) { 
+ $(document).mouseup(function(e) {
+	var lastTextSelected = textSelected;
     textSelected=getSelectedText();
-    if (textSelected!='') {	//If user selected text
+    if ((textSelected!='')&&(textSelected!=lastTextSelected)) {	//If user selected text
 		port.postMessage({listen: textSelected}); //Request text to speech (to background.js)
 	}
 	});
@@ -36,6 +37,18 @@ port.onMessage.addListener(function(msg) {
 			createAudioPlayer((msg.AudioURL).replace(/<[^>]*>?/g, ''));
 		}
 });
+function hasAudio() {
+	var audio = document.querySelector("#Listening");
+	if (!audio) {
+		return false;
+	}
+	else {
+		return audio.added;
+	}
+}
+/*var script = document.createElement('script');
+			script.appendChild(document.createTextNode("function essaimoi() {var boxAudio = document.getElementsByClassName('audio-player-hover')[0]; MEMRISE.audioPlayer.play({ url: boxAudio.href, onplay: function() { boxAudio.className = 'audio-player-hover audio-player playing' }, onfinish: function() { boxAudio.className = 'audio-player-hover audio-player' } }) } "));
+			(document.body || document.head || document.documentElement).appendChild(script);*/
 function createAudioPlayer(audioLink) {
 			
 			var audio = document.getElementById('audioHebrew');
@@ -44,7 +57,28 @@ function createAudioPlayer(audioLink) {
 			source.setAttribute("src", audioLink);
 			audio.load();
 			audio.play();
-			$("#ListenToSpeech").text(textSelected);
+			//$("#audioHebrew").html("");
+			//row = document.getElementById("audioHebrew");
+/*			if (!hasAudio()) {
+				var box = document.createElement('a');
+				box.className = "audio-player-hover audio-player"; 
+				box.href=audioLink;
+				box.added = true;
+				row.appendChild(box);
+				console.log("audio ajoutée");
+			}
+			else {
+				var box = document.getElementsByClassName("audio-player-hover")[0];
+				box.href = audioLink;
+				console.log("audio ajouté");
+			}
+			$(".audio-player-hover").mouseover();
+			var script = document.createElement('script');
+			script.appendChild(document.createTextNode("essaimoi();"));
+			(document.body || document.head || document.documentElement).appendChild(script);
+			
+			console.log($(".audio-player-hover"));
+*/			$("#ListenToSpeech").text(textSelected);
 
 }
 //--------------------Show languages TTS and selected last choice--------------------------------------//
