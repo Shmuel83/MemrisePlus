@@ -91,6 +91,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 		SelectChoiceLang = (localStorage.getItem("SelectChoiceLang")).replace(/<[^>]*>?/g, ''); 
 	}
     if (request.listen) {	//User selected text
+	//-------------------Select Hebrew--------------------------------------------//
 	if((Choice_ListenHebrew=="true") & (SelectChoiceLang=="Hebrew")) {
 		var textHebrew = request.listen;
 		if (textHebrew!='') {
@@ -154,13 +155,16 @@ chrome.runtime.onConnect.addListener(function(port) {
 		}
 	}
 	}
+	//-------------------Select other language that Hebrew--------------------------------------------//
 	if(Choice_ListenTTS=="true") {
 		var textTTS = (request.listen).replace(/<[^>]*>?/g, '');
-		
-		if(SelectChoiceLang.substring(0, 6)=="Google") { //TTS Speech Google
+		//-------------------Select TTS Google---------------//
+		if((SelectChoiceLang.substring(0, 6)=="Google")||(SelectChoiceLang=="native")) { //TTS Speech Google
+			
 			chrome.tts.speak(textTTS,{"voiceName":SelectChoiceLang.replace(/<[^>]*>?/g, '')});
 		}
-		else {
+		//-------------------Select TTS ResponsiveVoice---------------//
+		else if(SelectChoiceLang!="Hebrew"){
 			var urlTTS = 'https://code.responsivevoice.org/develop/getvoice.php/?t=' + textTTS;
 			var langueChoice = "en-US"; //By default, English language
 			var listTTS = getListTTSlanguage();
@@ -262,6 +266,14 @@ function(request, sender, sendResponse) {
 			 setThing(course, parseInt(things[i]));
 		 }
 	}
+	if(request.game) {
+		var courses = JSON.parse((localStorage['courses']).replace(/<[^>]*>?/g, '')).courses;
+		for(var icourse=0; icourse<courses.length; icourse++) {
+			var idCourse = parseInt(courses[icourse].id);
+			getThings_game(idCourse);
+		}
+	}
+	
 
   });
 

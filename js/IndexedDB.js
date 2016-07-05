@@ -352,3 +352,49 @@ function getCourses() {
 function callback_getThings_API(_course,_tabObject,_tabIdT) {
 	OnloadCourseDetail(_course,JSON.stringify(_tabIdT));
 }
+//To get things for a game
+function getThings_game(course) {
+	getThings(course,callback_getThings_game);
+}
+//Random sort of difficult words
+function shuffle(a)
+{
+   var j = 0;
+   var valI = '';
+   var valJ = valI;
+   var l = a.length - 1;
+   while(l > -1)
+   {
+		j = Math.floor(Math.random() * l);
+		valI = a[l];
+		valJ = a[j];
+		a[l] = valJ;
+		a[j] = valI;
+		l = l - 1;
+	}
+	return a;
+ }
+function callback_getThings_game(_course,_tabObject,_tabIdT) {
+	var thingsArray = new Array();
+	var nb_things = 0; //no include search word >= 10 letters
+	if(_tabObject.length>3) {
+	for(i=0;i<_tabObject.length;i++) {
+		console.log(_tabObject[i].split(" : ")[0]);
+		if((_tabObject[i].split(" : ")[0]).length<10) {
+			thingsArray[nb_things] = _tabObject[i];
+			nb_things++;
+		}
+	}
+	var testShuffle = shuffle(thingsArray);
+	
+	chrome.tabs.query(
+		{
+			url:"http://www.memrise.com/*" //Recherche de l'onglet memrise
+		}, 
+		function(result) {
+			if(result.length) {
+				chrome.tabs.executeScript(result[0].id,{code:"localStorage.setItem('game_"+_course+"','"+JSON.stringify(testShuffle)+"')"});
+			}
+		});
+	}
+}

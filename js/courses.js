@@ -2,7 +2,6 @@
 function coursesView() {
 var courses = JSON.parse((localStorage['courses']).replace(/<[^>]*>?/g, '')).courses;
 $('#divCourses').html("");
-//var things = JSON.parse(localStorage["CourseThings"]);
 for(var icourse=0; icourse<courses.length; icourse++) {
 	var nameCourse = (courses[icourse].name).replace(/<[^>]*>?/g, '');
 	var completed = parseInt(courses[icourse].percent_complete);
