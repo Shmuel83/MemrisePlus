@@ -1,7 +1,7 @@
 {
 "name" :"MEMRISE+",
 "short_name" : "memrise +",
-"version" : "1.0.6",
+"version" : "1.1.0",
 "manifest_version" :2,
 "default_locale": "en",
 "description" :"For memrise website, you can add a timer configuration, modify font, show charts, difficult words, listen words with TTS",
