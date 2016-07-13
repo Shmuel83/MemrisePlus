@@ -134,6 +134,9 @@
 	"message": "mots difficiles",
 	"description": "Courses tab : On select, show words difficult"},
 "HelpMe": {
-	"message": "Si vous avez besoin d'aide lorsque vous devez écrire la traduction sur l'entrée, vous pouvez cliquer sur le bouton nouveau ('Help me'), et une lettre est ajoutée",
-	"description": "Option tab : Help on input test for add a letter and more"}
+	"message": "Si vous avez besoin d'aide lorsque vous devez écrire la traduction, vous pouvez cliquer sur le bouton 'Help me', et une lettre s'ajoutera",
+	"description": "Option tab : Help on input test for add a letter and more"},
+"Game": {
+	"message": "Jeux mots mêlés incluant les mots difficiles (dont les mots font moins de 10 lettres et ne contentant que des lettre alphabétiques). Un bouton 'game +' alors apparait sur la page d'accueil pour chaque cours si 3 mots sont à chercher au minimum",
+	"description": "Home page : add game button for each courses for word search game"}
 }

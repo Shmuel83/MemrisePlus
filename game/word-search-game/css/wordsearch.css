@@ -63,3 +63,6 @@
   padding:0;
   margin:0;
 }
+.ws-strike-on {
+	text-decoration: line-through;
+}

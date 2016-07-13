@@ -374,19 +374,22 @@ function shuffle(a)
 	}
 	return a;
  }
- //AddSlashes
+ //AddSlashes (Useless)
 function addslashes( str ) {
     return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
 }
 function callback_getThings_game(_course,_tabObject,_tabIdT) {
 	var thingsArray = new Array();
-	var nb_things = 0; //no include search word >= 10 letters
+	var nb_things = 0;
+	var tmp_worda = "";
 	if(_tabObject.length>3) {
 	for(i=0;i<_tabObject.length;i++) {
-		console.log(_tabObject[i].split(" : ")[0]);
-		if((_tabObject[i].split(" : ")[0]).length<10) {
-			thingsArray[nb_things] = addslashes(_tabObject[i]);
-			nb_things++;
+		tmp_worda = _tabObject[i].split(" : ")[0];
+		if(tmp_worda.length<10) {	//Not included word most 10 letters
+			if(tmp_worda.search("[() ,;:.'!?/_-]")==-1) { //Not included word_a with a none alphabetic word
+				thingsArray[nb_things] = (_tabObject[i]);
+				nb_things++;
+			}
 		}
 	}
 	var testShuffle = shuffle(thingsArray);
@@ -397,7 +400,7 @@ function callback_getThings_game(_course,_tabObject,_tabIdT) {
 		}, 
 		function(result) {
 			if(result.length) {
-				chrome.tabs.executeScript(result[0].id,{code:"localStorage.setItem('game_"+_course+"','"+testShuffle+"')"});
+				chrome.tabs.executeScript(result[0].id,{code:"localStorage.setItem('game_"+_course+"','"+JSON.stringify(testShuffle)+"')"});
 			}
 		});
 	}

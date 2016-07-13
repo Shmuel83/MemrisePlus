@@ -11,6 +11,7 @@ function save_options(e) {
 	var get_Choice_ListenTTS = document.getElementById('ListenChoiceTTS').checked;
 	var get_Choice_ListenHebrew = document.getElementById('ListenChoiceHebrew').checked;
 	var get_Choice_HelpMe = document.getElementById('HelpMe').checked;
+	var get_Game = document.getElementById('Game').checked;
 	
 	localStorage.setItem('ListenChoiceTTS',get_Choice_ListenTTS);
 	localStorage.setItem('ListenChoiceHebrew',get_Choice_ListenHebrew);
@@ -27,7 +28,8 @@ function save_options(e) {
 			Choice_PoliceHebrew: get_PoliceHebrew,
 			Choice_ListenTTS: get_Choice_ListenTTS,
 			Choice_ListenHebrew: get_Choice_ListenHebrew,
-			Choice_Help : get_Choice_HelpMe
+			Choice_Help : get_Choice_HelpMe,
+			Choice_Game : get_Game
 		}, function() {
 				callback_storage_optionSave();
 		});
@@ -44,7 +46,8 @@ function save_options(e) {
 			Choice_PoliceHebrew: get_PoliceHebrew,
 			Choice_ListenTTS: get_Choice_ListenTTS,
 			Choice_ListenHebrew: get_Choice_ListenHebrew,
-			Choice_Help : get_Choice_HelpMe
+			Choice_Help : get_Choice_HelpMe,
+			Choice_Game : get_Game
 		}, function() {
 				callback_storage_optionSave();
 		});
@@ -80,7 +83,8 @@ function restore_options() {
 		Choice_PoliceHebrew: false,
 		Choice_ListenTTS: false,
 		Choice_ListenHebrew: false,
-		Choice_Help : false
+		Choice_Help : false,
+		Choice_Game : false
 		}, function(objectStorage) {
 			callback_storage_optionRestore(objectStorage);
 		});
@@ -97,7 +101,8 @@ function restore_options() {
 		Choice_PoliceHebrew: false,
 		Choice_ListenTTS: false,
 		Choice_ListenHebrew: false,
-		Choice_Help : false
+		Choice_Help : false,
+		Choice_Game : false
 		}, function(objectStorage) {
 			callback_storage_optionRestore(objectStorage);
 		});
@@ -109,6 +114,7 @@ function restore_options() {
 		document.getElementById('Chat').checked = items.Choice_chat;
 		document.getElementById('Rankoverlord').checked = items.Choice_fun;
 		document.getElementById('HelpMe').checked = items.Choice_Help;
+		document.getElementById('Game').checked = items.Choice_Game;
 		$( '[value="'+ (items.Choice_open).replace(/<[^>]*>?/g, '') + '"]' ).prop( "checked", true );
 		$('#lang [value="'+ (items.Choice_lang).replace(/<[^>]*>?/g, '') +'"]').prop('selected', true)
 		document.getElementById('cursiveHebrew').checked = items.Choice_PoliceHebrew;
@@ -159,6 +165,7 @@ $("#_Chat").text(chrome.i18n.getMessage('chat'));
 $("#ListenHebrew").text(chrome.i18n.getMessage('ListenHebrew'));
 $("#ListenTTS").text(chrome.i18n.getMessage('ListenTTS'));
 $("#_HelpMe").text(chrome.i18n.getMessage('HelpMe'));
+$("#_Game").text(chrome.i18n.getMessage('Game'));
 
 //Get extension version. Write into footbar
 $("#version").text("version "+(chrome.runtime.getManifest().version+ " "));

@@ -28,6 +28,7 @@
       'gridSize': 10,
       'words': ['one', 'two', 'three', 'four', 'five'],
 	  'wordsList' : [],
+	  'wordsTranslate' : ['un','deux','trois','quatre','cinq'],
       'debug': false
     }
     this.settings = Object.merge(settings, default_settings);
@@ -342,8 +343,9 @@
       var wordListItems = wordList.getElementsByTagName("li");
       for(var i=0; i<wordListItems.length; i++){
         if(words[0] == removeDiacritics(wordListItems[i].innerHTML.toUpperCase())){			
-          if(wordListItems[i].innerHTML != "<del>"+wordListItems[i].innerHTML+"</del>") { //Check the word is never found
-			wordListItems[i].innerHTML = "<del>"+wordListItems[i].innerHTML+"</del>";
+          if(!wordListItems[i].classList.contains("ws-strike-on")) { //Check the word is never found
+			//wordListItems[i].innerHTML = "<del>"+wordListItems[i].innerHTML+"</del>";
+			wordListItems[i].classList.add("ws-strike-on");
 			//Increment solved words.
 			this.solved++;
 		  }
@@ -607,31 +609,59 @@ function searchLanguage(firstLetter)
 	
 	
 }
+//Random sort of difficult words
+function shuffle(a)
+{
+   var j = 0;
+   var valI = '';
+   var valJ = valI;
+   var l = a.length - 1;
+   while(l > -1)
+   {
+		j = Math.floor(Math.random() * l);
+		valI = a[l];
+		valJ = a[j];
+		a[l] = valJ;
+		a[j] = valI;
+		l = l - 1;
+	}
+	return a;
+ }
 $("#content").append('<div class="wrap"><h1 class="logo">Word search game</h1><section id="ws-area"></section><ul class="ws-words"></ul></div>');
 $('.wrap').hide();
 $(document).click(function(event) {
   var _course =  event.target.id;
 var thecourseId = event.target.id.split("game_");
 if(thecourseId.length==2) {
-	$(".wrap").html('<h1 class="logo">Word search game</h1><section id="ws-area"></section><ul class="ws-words"></ul>');
-	$('.wrap').dialog({width: "80%"});
+	$(".wrap").html('<h1 class="logo">Word search game</h1><section id="ws-area"></section><ul class="ws-words"></ul><h5>Mousing over the word on the list for read its translation</h5>');
+	$('.wrap').dialog({width: "95%"});
 	var gameAreaEl = document.getElementById('ws-area');
 	var difficultCourse = localStorage[_course];
-	var ArraydifficultCourse = difficultCourse.split(',');
+	var ArraydifficultCourse = shuffle(JSON.parse(difficultCourse));//Parse JSON ans random list
 	var words = new Array();
+	var wordsTranslate = new Array();
 	for(i=0;i<ArraydifficultCourse.length;i++) {
 		words[i] = ArraydifficultCourse[i].split(' : ')[0];
+		wordsTranslate[i] = ArraydifficultCourse[i].split(' : ')[1];
 		if(i>=7) { break;}
 	}
-	console.log(words);
-    var gameobj = gameAreaEl.wordSearch({'words':words});
-      var words = gameobj.settings.wordsList,
-        wordsWrap = document.querySelector('.ws-words');
+    var gameobj = gameAreaEl.wordSearch({'words':words,'wordsTranslate':wordsTranslate});
+    var words = gameobj.settings.wordsList,
+    wordsWrap = document.querySelector('.ws-words');
       for (i in words) {
         var liEl = document.createElement('li');
         liEl.setAttribute('class', 'ws-word');
+		liEl.setAttribute('data-word', 'word-'+i);
         liEl.innerText = words[i];
         wordsWrap.appendChild(liEl);
       }
+	  $("[data-word]").mouseenter(function(e) {
+		var idEvent = this.getAttribute("data-word").match("([0-9]+)");
+		$(this).text(wordsTranslate[idEvent[0]]);
+	});
+	$("[data-word]").mouseleave(function(e){
+		var idEvent = this.getAttribute("data-word").match("([0-9]+)");
+		$(this).text(words[idEvent[0]]);
+	});
 }
 });

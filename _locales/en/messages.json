@@ -135,5 +135,8 @@
 	"description": "Courses tab : On select, show words difficult"},
 "HelpMe": {
 	"message": "If you need help when you must write the translation on input, you can click on new button ('help me'), and a letter is added",
-	"description": "Option tab : Help on input test for add a letter and more"}
+	"description": "Option tab : Help on input test for add a letter and more"},
+"Game": {
+	"message": "Add Word Search Game for difficult words (word is included on the game if lengh<10 and alphabet character only). Button 'game +' appear on home page if 3 words minimum are at find for each courses",
+	"description": "Home page : add game button for each courses for word search game"}
 }
