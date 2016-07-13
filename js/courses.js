@@ -6,13 +6,13 @@ for(var icourse=0; icourse<courses.length; icourse++) {
 	var nameCourse = (courses[icourse].name).replace(/<[^>]*>?/g, '');
 	var completed = parseInt(courses[icourse].percent_complete);
 	var idCourse = parseInt(courses[icourse].id);
-	var nbDifficult = parseInt(courses[icourse].difficult); //Not real number of difficult words
+	var nbDifficult = parseInt(courses[icourse].difficult);
 	var textThings = "";
 	/*if(parseInt(things.course)==idCourse) {
 		textThings = things.things;
 	}*/
 	getThings(idCourse,callback_getThings);
-	$('#divCourses').append("<div id='header' class='flex-courses'>"+ nameCourse +" "+chrome.i18n.getMessage('CourseDo')+" :<div id='g_"+ idCourse +"' class='gauge'></div><select id='difficultWords_"+idCourse+"'><option>"+chrome.i18n.getMessage('SelectionWordDifficult')+"</option></select></div>");
+	$('#divCourses').append("<div id='header' class='flex-courses'>"+ nameCourse +" "+chrome.i18n.getMessage('CourseDo')+" :<div id='g_"+ idCourse +"' class='gauge'></div><select id='difficultWords_"+idCourse+"'><option>"+nbDifficult+" "+chrome.i18n.getMessage('SelectionWordDifficult')+"</option></select></div>");
 
 
 var g1;
