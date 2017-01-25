@@ -35,8 +35,8 @@ $(function() { //Attendre que la page finisse de se charger avant d'effectuer le
 			OnloadStreakGraph(true);
 			OnloadFancyGraph(true);
 			OnloadCourses(true);
-			OnloadBadges();
-			getCourses();
+			//OnloadBadges();
+			//getCourses();
 			
 		});
 		$("#clickici").click();
