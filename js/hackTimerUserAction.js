@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name           Memrise Auto-Pause
 // @description    Pauses Memrise watering & gardening when the window loses focus
-// @match          http://www.memrise.com/course/*/garden/*
-// @match          http://www.memrise.com/garden/water/*
+// @match          https://www.memrise.com/course/*/garden/*
+// @match          https://www.memrise.com/garden/water/*
 // @version        0.1
 // @namespace      https://greasyfork.org/users/5238-carpiediem
 // @grant          none
@@ -132,6 +132,7 @@ var setCountdown = function setCountdown(currentSetting) {
     switch (currentSetting) {
         case "normal":
             //Change button color & tooltip
+			$('#timerToggle').html('<i class="material-icons">timer</i>');
             $('#timerToggle').css('background-color',"green").attr("title","Answer timer is set to normal.\nClick to slow the timer.");
             //Change website functionality
             MEMRISE.garden.timer.paused = false;
@@ -140,6 +141,7 @@ var setCountdown = function setCountdown(currentSetting) {
             
         case "slow":
             //Change button color & tooltip
+			$('#timerToggle').html('<i class="material-icons">timelapse</i>');
             $('#timerToggle').css("background-color","yellow").attr("title","Answer timer is set to slow.\nClick to disable the timer.");
             //Change website functionality
             MEMRISE.garden.timer.activate = function (a,b){
@@ -156,6 +158,7 @@ var setCountdown = function setCountdown(currentSetting) {
 
         case "disabled":
             //Change button color & tooltip
+			$('#timerToggle').html('<i class="material-icons">timer_off</i>');
             $('#timerToggle').css('background-color',"red").attr("title","Answer timer is disabled.\nClick to enable the timer.");
             //Change website functionality
             MEMRISE.garden.timer.activate = function (a,b){
@@ -193,13 +196,17 @@ var timerSetting = "normal";
 var delayEnabled = true;
 
 //Create buttons
+$('link').first().append('<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">');
 $('#timerControls').css('width','100px');
-$('#timerControls div').css({width:'32px',height:'32px',margin:'8px',"background-image":"url('http://www.rslc.us/images/timer-controls.png')",'background-color':'grey'}).attr("title","The timer control script did not load correctly.");
+$('#timerControls div').css({width:'32px',height:'32px',margin:'8px','text-align':'center',cursor:'pointer','background-color':'grey'}).attr("title","The timer control script did not load correctly.");
+$('#timerToggle').html('<i class="material-icons" md-48>timer</i>');
+$('#delayToggle').html('<i class="material-icons" >fast_forward</i>');
 $('#timerToggle').css({float:'left', 'background-position':'32px 0px'});
 $('#delayToggle').css({float:'right','background-position':'0px 0px' });
 
 //setCountdown(timerSetting);
 $('#timerToggle').css('background-color',"green").attr("title","Answer timer is set to normal.\nClick to slow the timer.");
+$('#delayToggle').css('background-color',"green").attr("title","Delay between questions is set to normal.\nClick to eliminate the delay.");
 //setDelay(delayEnabled);
 
 $('#timerToggle').click(function() {
