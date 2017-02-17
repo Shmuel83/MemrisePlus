@@ -396,7 +396,7 @@ function callback_getThings_game(_course,_tabObject,_tabIdT) {
 	
 	chrome.tabs.query(
 		{
-			url:"http://www.memrise.com/*" //Recherche de l'onglet memrise
+			url:"https://www.memrise.com/*" //Recherche de l'onglet memrise
 		}, 
 		function(result) {
 			if(result.length) {

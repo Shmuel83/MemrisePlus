@@ -2,7 +2,7 @@ function checkSession() {
 	//Récupération Username (variable JSON : MEMRISE)
 chrome.tabs.query(
 		{
-			url:"http://www.memrise.com/*" //Recherche de l'onglet memrise
+			url:"https://www.memrise.com/*" //Recherche de l'onglet memrise
 		}, 
 		function(result) {
 			if(result.length) {
@@ -30,7 +30,7 @@ $(function() { //Attendre que la page finisse de se charger avant d'effectuer le
 	}
 	else {
 		$("#chartdiv").html("<h3>Hello, you must be connected on memrise for that extension run ! <a id='InitConnect' href='https://www.memrise.com'>https://www.memrise.com</a><hr><a href='#' id='clickici'>Click on</a> to reload extension. If don't working, don't panic, go to extension tab and click on reload, or close chrome and open it</h3>");
-		 $("#InitConnect").click(function() {chrome.tabs.create({ url: "http://www.memrise.com/" })});
+		 $("#InitConnect").click(function() {chrome.tabs.create({ url: "https://www.memrise.com/" })});
 		$("#clickici").click(function() {
 			OnloadStreakGraph(true);
 			OnloadFancyGraph(true);

@@ -22,11 +22,11 @@ function callback_storage_actionClick(items) {
 	if(items.Choice_openTab) {
 		chrome.tabs.query(
 		{
-			url:"http://www.memrise.com/*" //Recherche de l'onglet memrise
+			url:"https://www.memrise.com/*" //Recherche de l'onglet memrise
 		}, 
 		function(result) {
 			if(result.length==0) {	//Si l'onglet n'existe pas
-				var newURL = "http://www.memrise.com/";
+				var newURL = "https://www.memrise.com/";
 				chrome.tabs.create({ url: newURL }); //Créer l'onglet
 				//chrome.tabs.create({url: 'popup.html'});
 				IdTabs = null;

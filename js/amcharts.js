@@ -1,4 +1,4 @@
-//GET http://www.memrise.com/ajax/metrics/learning_streak_graph/
+//GET https://www.memrise.com/ajax/metrics/learning_streak_graph/
 var chartData;
 var chart;
 var langStorage="en";

@@ -1,6 +1,6 @@
 //Recherche de tous les cours (ne répond à pas plus de 4 cours. Si il y en a plus, on ne les voient pas)
 function OnloadCourses(is_popup) {
-var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter=most_recent&limit=20";
+var url_courses = "https://www.memrise.com/ajax/courses/dashboard/?courses_filter=most_recent&limit=20";
         $.getJSON(url_courses, function (data) {
             localStorage.setItem("courses",(JSON.stringify(data)).replace(/<[^>]*>?/g, ''));
         })
@@ -20,7 +20,7 @@ var url_courses = "http://www.memrise.com/ajax/courses/dashboard/?courses_filter
 }
 //Recherche détail d'un cours
 function OnloadCourseDetail(courseId,ArrayThingsId) {
-var url_courseDetail = "http://www.memrise.com/api/thing/stats/?course_id=" + courseId +"&thing_ids="+ArrayThingsId;
+var url_courseDetail = "https://www.memrise.com/api/thing/stats/?course_id=" + courseId +"&thing_ids="+ArrayThingsId;
         $.getJSON(url_courseDetail)
  .done(function(parserThings) {
 	for(i=0;i<parserThings.things.length;i++) {
@@ -48,7 +48,7 @@ var url_courseDetail = "http://www.memrise.com/api/thing/stats/?course_id=" + co
 }
 //Récupération de tous les points cumulés
 function OnloadStreakGraph(is_popup) {
-var url_streakGraph = "http://www.memrise.com/ajax/metrics/learning_streak_graph/";
+var url_streakGraph = "https://www.memrise.com/ajax/metrics/learning_streak_graph/";
         $.getJSON(url_streakGraph, function (data) {
             localStorage.setItem("json",(JSON.stringify(data)).replace(/<[^>]*>?/g, ''));
         })
@@ -67,7 +67,7 @@ var url_streakGraph = "http://www.memrise.com/ajax/metrics/learning_streak_graph
 }
 //Récupération de tous les points cumulés
 function OnloadFancyGraph(is_popup) {
-var url_fancyGraph = "http://www.memrise.com/ajax/metrics/fancy_tests_graph/";
+var url_fancyGraph = "https://www.memrise.com/ajax/metrics/fancy_tests_graph/";
         $.getJSON(url_fancyGraph, function (data) {
             localStorage.setItem("fancy",(JSON.stringify(data)).replace(/<[^>]*>?/g, ''));
         })
